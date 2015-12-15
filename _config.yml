@@ -66,11 +66,3 @@ pagination_dir: page
 ## Plugins: http://hexo.io/plugins/
 ## Themes: http://hexo.io/themes/
 theme: landscape
-
-# Deployment
-## Docs: http://hexo.io/docs/deployment.html
-#deploy:
-#  type: git
-#  repo: git@github.com:cansat-icarus/cansat-icarus.github.io.git
-#  branch: master
-# All hail Travis, not the deployer...
