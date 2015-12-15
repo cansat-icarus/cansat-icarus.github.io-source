@@ -1,0 +1,17 @@
+# All dot files but...
+.*
+!.gitignore
+!.gitkeep
+
+# Windows uselessness
+Thumbs.db
+
+# Log files
+*.log
+
+# npm dependencies
+node_modules/
+
+# Internal to Hexo
+db.json
+public/
