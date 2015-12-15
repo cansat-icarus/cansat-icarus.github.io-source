@@ -1,0 +1,16 @@
+script: bash ./travis.sh
+env:
+  global:
+    - CXX: g++-4.8
+    - GH_REF: github.com/cansat-icarus/cansat-icarus.github.io.git
+    - GH_TOKEN: "jUJIjwYz85ALNtmg6td7txtZMAGL0MEbZJ6SjqIsqnCuqPyrLpF/8zXYo9JpdRwAxY5tnFgOYnWvtDd4jzJ9RchB+Gq7WA8f1iA9m/WTdAEq/lm5FCWWm9MW49ge4WpK1tDlp8QjpNoBfJV1+obxJrlwVCwcwGOMC8A4R+z9Fr3fLUCr1gcASdvgXE2ML7+UESvV8nvHLm5Ihpybip0QaRNv1+Y0bs4ftO7UZEFISERyfYa7mmZWSDLEl8I8vBhBh1quiP2JL7IHTCvB+b0XoKZ131Hyy1Upq3ttM7wNKvVfxHQI1+FS8m5jMqfgR/L+AvFo7xj5QvFQDrvdEfgSYp+iqgjbt9gsfHsoSIt+LzmDD07Qhi0Kb5pEADnFIh5L4rMF/UOVqJnKYTWMHnJSW0Cm4jmETNIRkrZlCar54w/4k3EcWyV2invrtSTinQmrKa9pYmoD7U5llXr+oCyqQDrSSjm8HLZdiX2LzZL37NDFPnrQFWnK5EvoHbc/Lv2lHtQEMv90dt9le0Bdu2Om3AscEHBLSbyRHiw875akUrU0VUoxVsJG4jbNZLc97Dr7HA8BcGsFx4buxVG7PpHRYZZS6HBQFPyRYxDOLIFuqcy/SmEU4nj7kQuh06clhjdB+a2c9K+GmM5XoIJNLPsJgJOS6AUBSnqcpkSkMuJcyPk="
+
+language: node_js
+node_js:
+  - "4"
+addons:
+  apt:
+    sources:
+      - ubuntu-toolchain-r-test
+    packages:
+      - g++-4.8
