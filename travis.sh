@@ -9,13 +9,11 @@ npm install -g hexo-cli
 
 echo 'Generating the english version'
 cd en
-npm install
 hexo generate
 cd ..
 
 echo 'Generating the portuguese version'
 cd pt
-mv ../en/node_modules node_modules # Just move it here
 hexo generate
 cd ..
 

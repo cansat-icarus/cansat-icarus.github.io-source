@@ -15,4 +15,5 @@ node_modules/
 
 # Internal to Hexo
 */db.json
+db.json
 */public/
