@@ -8,11 +8,11 @@
 Thumbs.db
 
 # Log files
-*.log
+*/*.log
 
 # npm dependencies
 node_modules/
 
 # Internal to Hexo
-db.json
-public/
+*/db.json
+*/public/
