@@ -176,6 +176,15 @@ $nav-link
   &::-webkit-search-cancel-button
     -webkit-appearance: none
 
+#lang-selector
+  @extend $header-block
+  @extend $header-block-right
+  span
+    @media mq-mini
+      display: none
+  a
+    color: color-link
+
 #main-nav-mobile
   overflow-y: hidden
   overflow-x: auto

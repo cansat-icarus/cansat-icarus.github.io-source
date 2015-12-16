@@ -7,11 +7,11 @@ title: ICARUS
 author: Team Icarus
 author_title: "author subtitle"
 location: "Águeda, Portugal"
-language: en
+language: pt
 # URL
 ## If your site is put in a subdirectory, set url as 'http://yoursite.com/child' and root as '/child/'
 url: http://cansat-icarus.github.io
-root: /en/
+root: /pt/
 permalink: :year/:month/:day/:title/
 permalink_defaults:
 

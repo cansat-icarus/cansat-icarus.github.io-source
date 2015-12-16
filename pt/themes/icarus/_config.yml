@@ -3,14 +3,14 @@ logo: css/images/logo.png # Empty this to unset logo and show site title in the 
 
 # Header
 menu:
-  Home: .
-  Archives: archives
-  Categories: categories
-  Tags: tags
-  About: about
+  Página Inicial: .
+  Arquivo: archives
+  Categorias: categories.html
+  Tags: tags.html
+  Acerca: about.html
 
 # Content
-excerpt_link: Read More
+excerpt_link: Ler mais...
 fancybox: true
 
 # Profile
@@ -31,7 +31,7 @@ thumbnail: true
 contacts:
   github: 'https://github.com/cansat-icarus'
   facebook: 'https://www.facebook.com/Icarus-1662440837332463'
-  rss: /atom.xml
+  rss: /pt/atom.xml
 
 # Links
 links:
