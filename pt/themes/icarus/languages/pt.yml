@@ -1,0 +1,29 @@
+index:
+  home: 'Página Inicial'
+  search: 'Pesquisa'
+  archive: 'arquivo'
+  category: 'categoria'
+  uncategorized: 'não categorizado'
+  tag: 'tag'
+nav:
+  next: 'Seguinte'
+  prev: 'Anterior'
+  older: 'Post Anterior'
+  newer: 'Post Seguinte'
+widget:
+  recents: 'recentes'
+  archives: 'arquivo'
+  categories: 'categorias'
+  links: 'links'
+  tags: 'tags'
+  tag_cloud: 'tag cloud'
+article:
+  comments: 'Comentários'
+  share: 'Partilhar'
+  catalogue: 'Catálogo'
+profile:
+  follow: 'SEGUIR'
+  post: 'post'
+  tag: 'tag'
+  posts: 'posts'
+  tags: 'tags'
