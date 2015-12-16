@@ -29,8 +29,9 @@ thumbnail: true
 
 # Contacts
 contacts:
-  github: 'https://github.com/cansat-icarus'
   facebook: 'https://www.facebook.com/Icarus-1662440837332463'
+  instagram: 'https://www.instagram.com/icarus_esap/'
+  github: 'https://github.com/cansat-icarus'
   rss: /en/atom.xml
 
 # Links
