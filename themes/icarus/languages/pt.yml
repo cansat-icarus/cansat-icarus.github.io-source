@@ -21,6 +21,7 @@ article:
   comments: 'Comentários'
   share: 'Partilhar'
   catalogue: 'Catálogo'
+  excerpt_link: 'Ler mais'
 profile:
   follow: 'SEGUIR'
   post: 'post'

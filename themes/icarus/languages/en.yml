@@ -21,6 +21,7 @@ article:
   comments: 'Comments'
   share: 'Share'
   catalogue: 'Catalogue'
+  excerpt_link: 'Read more'
 profile:
   follow: 'FOLLOW'
   post: 'post'

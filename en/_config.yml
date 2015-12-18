@@ -68,3 +68,8 @@ feed:
   type: atom
   path: atom.xml
   limit: 20
+
+# Language Selector
+lang_selector:
+  - PT: "pt"
+  - EN: true

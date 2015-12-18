@@ -25,7 +25,24 @@
         <% } %>
       </div>
       <div id="lang-selector">
-        <a href="/pt/<%-path%>">PT</a> | <b>EN</b>
+        <%
+        var i = 0;
+        for (var ii = 0; ii < config.lang_selector.length; ii++) {
+          for(var lang in config.lang_selector[ii]) {
+            if(config.lang_selector[ii].hasOwnProperty(lang)) {
+              if(i > 0) {
+                %>&nbsp;|&nbsp;<%
+              }
+              if(config.lang_selector[ii][lang] === true) {
+                %><b><%-lang%></b><%
+              } else {
+                %><a href="/<%-config.lang_selector[ii][lang]%>/<%-path%>"><%-lang%></a><%
+              }
+              i++;
+            }
+          }
+        }
+        %>
       </div>
     </div>
   </div>
