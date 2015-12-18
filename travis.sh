@@ -3,14 +3,6 @@
 
 set -e # exit with nonzero exit code if anything fails
 
-# Make sure there is a cached node_modules
-if [ ! -d 'node_modules' ]; then
-  npm install
-else
-  echo 'Just updating the cache... hang on'
-  npm update
-fi
-
 # Install hexo globally
 echo 'Installing hexo-cli'
 npm install -g hexo-cli
