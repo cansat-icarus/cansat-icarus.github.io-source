@@ -19,7 +19,7 @@ before_script:
 script: ./node_modules/.bin/gulp build
 
 # Publish to gh-pages
-after_sucess:
+after_success:
   - cd dist
   - git init
   - git add .
