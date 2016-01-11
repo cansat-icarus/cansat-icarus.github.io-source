@@ -18,11 +18,8 @@ before_script:
 # BUILD!
 script: ./node_modules/.bin/gulp build
 
-deploy:
-  skip_cleanup: true
-
 # Publish to gh-pages
-after_script:
+after_success:
   - cd dist
   - git add .
   - "git commit -m '[TravisCI Deployer] $COMMIT_MSG'"
