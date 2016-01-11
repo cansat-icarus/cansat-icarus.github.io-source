@@ -1,10 +1,10 @@
 language: node_js
 node_js:
-  - "v4"
+  - 'v4'
 env:
   global:
   - GH_REF: github.com/cansat-icarus/cansat-icarus.github.io.git
-  - secure: "rbdmP+GpUVDjftQR3ohzDjDTSliq0x+yId0HeStR+5zxVdCQT0XY2XPQYTPfA1q+eHLne6s79tqRH5EjoKvaXY8vT8EX4WV+lWhDBMlN4w0HS+QyYcxRN5wqFAyAnDlZu0YFRn0xRpAyNwtmAnsXnt/kjlm4Nm/bqHU8V+EoIWJsH1lvAmXqMgxvSgn8dZrX8EeEt1fJ+R3H2W2tXbuHnl5dvyUs60DHv0xy4dZk1AK5flLGs0Y6SIU6zVNbLmMbhukV/FrF97VciIBlEx6qHIh1XQ4OiJHBW8cxyvECLlb+G8u36pzngEcTRfKRBksTYWaqw58K4gOorH7ZEQlH2FP2bN0qf1fD2JYHB6AeBuRGLInAF/GF3i7tw+ZUTZ8VFZdrNA7w4bUivr0lHuOI35uug9ZiJ8skyTsaeMSKyPthh8ZDqAt+p7iVoFhdiDtljJo3f2iBFqa0BodMLYT6mYyzChi7I5FREK4kXk1wCPTbyRjLFq/kpA2MzvFpZNYfDiVLiU+4h4q/YJt1c7PwdwtHUZ4yJ176X59Kb+QsbTSI/qBJ3k7xRKkbG5QDstlMUl8bjKsbON8TAoFXHlxO0heglbjnkxffKZ8G1ksrbrUvQtg1HLV33IYSUn0nSE4MGfIWGtF/fyAS9y8GF3Chzve7i8tYbkRa3jM+688tyVg="
+  - secure: 'rbdmP+GpUVDjftQR3ohzDjDTSliq0x+yId0HeStR+5zxVdCQT0XY2XPQYTPfA1q+eHLne6s79tqRH5EjoKvaXY8vT8EX4WV+lWhDBMlN4w0HS+QyYcxRN5wqFAyAnDlZu0YFRn0xRpAyNwtmAnsXnt/kjlm4Nm/bqHU8V+EoIWJsH1lvAmXqMgxvSgn8dZrX8EeEt1fJ+R3H2W2tXbuHnl5dvyUs60DHv0xy4dZk1AK5flLGs0Y6SIU6zVNbLmMbhukV/FrF97VciIBlEx6qHIh1XQ4OiJHBW8cxyvECLlb+G8u36pzngEcTRfKRBksTYWaqw58K4gOorH7ZEQlH2FP2bN0qf1fD2JYHB6AeBuRGLInAF/GF3i7tw+ZUTZ8VFZdrNA7w4bUivr0lHuOI35uug9ZiJ8skyTsaeMSKyPthh8ZDqAt+p7iVoFhdiDtljJo3f2iBFqa0BodMLYT6mYyzChi7I5FREK4kXk1wCPTbyRjLFq/kpA2MzvFpZNYfDiVLiU+4h4q/YJt1c7PwdwtHUZ4yJ176X59Kb+QsbTSI/qBJ3k7xRKkbG5QDstlMUl8bjKsbON8TAoFXHlxO0heglbjnkxffKZ8G1ksrbrUvQtg1HLV33IYSUn0nSE4MGfIWGtF/fyAS9y8GF3Chzve7i8tYbkRa3jM+688tyVg='
 cache:
   directories:
     - node_modules
@@ -23,5 +23,5 @@ after_success:
   - git config user.name "Travis CI"
   - git config user.email "the-mighty-travis-bot@example.org"
   - git add .
-  - "git commit -m '[TravisCI Deployer] $COMMIT_MSG'"
-  - "git push --force 'https://${GH_TOKEN}@${GH_REF}' master > /dev/null 2>&1"
+  - 'git commit -m "[TravisCI Deployer] $COMMIT_MSG"'
+  - 'git push --force "https://${GH_TOKEN}@${GH_REF}" master > /dev/null 2>&1'
