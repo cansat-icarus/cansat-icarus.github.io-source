@@ -9,10 +9,8 @@ cache:
   directories:
     - node_modules
 
-# Set some git variables
+# Grab the old commit name
 before_script:
-  - git config user.name "Travis CI"
-  - git config user.email "the-mighty-travis-bot@example.org"
   - export COMMIT_MSG=$(git log -1 --pretty=%B)
 
 # BUILD!
@@ -22,6 +20,8 @@ script: ./node_modules/.bin/gulp build
 after_success:
   - cd dist
   - git init
+  - git config user.name "Travis CI"
+  - git config user.email "the-mighty-travis-bot@example.org"
   - git add .
   - "git commit -m '[TravisCI Deployer] $COMMIT_MSG'"
   - "git push --force 'https://${GH_TOKEN}@${GH_REF}' master > /dev/null 2>&1"
