@@ -17,3 +17,6 @@ node_modules/
 */db.json
 db.json
 */public/
+
+# Build output from gulp
+dist
