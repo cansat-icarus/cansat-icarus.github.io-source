@@ -1,0 +1,54 @@
+<% post = page; index = false; %>
+<article id="<%= post.layout %>-<%= post.slug %>" class="article article-type-<%= post.layout %>" itemscope itemprop="blogpost">
+  <div class="article-inner">
+    <% if (post.banner){ %>
+      <%- partial('_partial/post/banner') %>
+    <% } %>
+    <%- partial('_partial/post/gallery') %>
+    <% if (post.link || post.title){ %>
+      <header class="article-header">
+        <%- partial('_partial/post/title', {class_name: 'article-title'}) %>
+        <div class="article-meta">
+          <%- partial('_partial/post/date', {class_name: 'article-date', date_format: null}) %>
+          <%- partial('_partial/post/category') %>
+        </div>
+      </header>
+    <% } %>
+    <div class="article-entry" itemprop="articleBody">
+      <div class="imagegrid">
+        <% for(var i = 0; i < theme.partners.length; i++) { %>
+          <div>
+            <a href="<%=theme.partners[i].url%>">
+              <img data-no-fancybox="true" src="<%=theme.partners[i].img_url%>" />
+              <span><%=theme.partners[i].name%></span>
+            </a>
+          </div>
+        <% } %>
+      </div>
+    </div>
+    <footer class="article-footer">
+      <a data-url="<%- post.permalink %>" data-id="<%= post._id %>" class="article-share-link"><%= __('article.share') %></a>
+      <% if (post.comments && config.disqus_shortname){ %>
+        <a href="<%- post.permalink %>#disqus_thread" class="article-comment-link"><%= __('article.comments') %></a>
+      <% } else if (post.comments && config.duoshuo_shortname){ %>
+        <a href="<%- post.permalink %>#ds-thread" class="article-comment-link"><%= __('article.comments') %></a>
+      <% } %>
+      <%- partial('_partial/post/tag') %>
+    </footer>
+  </div>
+  <%- partial('_partial/post/nav') %>
+</article>
+
+<% if (post.comments && config.disqus_shortname){ %>
+<section id="comments">
+  <div id="disqus_thread">
+    <noscript>Please enable JavaScript to view the <a href="//disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+  </div>
+</section>
+<% } else if (post.comments && config.duoshuo_shortname){ %>
+  <section id="comments">
+    <div id="ds-thread" class="ds-thread" data-thread-key="<%- post.permalink %>" data-title="<%- post.title %>" data-url="<%- post.permalink %>">
+      <noscript>Please enable JavaScript to view the <a href="//disqus.com/?ref_noscript">comments powered by DuoShuo.</a></noscript>
+      </div>
+  </section>
+<% } %>

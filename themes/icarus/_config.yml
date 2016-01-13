@@ -48,3 +48,29 @@ twitter:
 google_plus:
 fb_admins:
 fb_app_id:
+
+partners:
+  - name: "Alphasense"
+    img_url: "http://www.alphasense.com/WEB1213/wp-content/themes/alphasense/assets/images/alphasense-logo.jpg"
+    url: "http://www.alphasense.com"
+  - name: ""
+    img_url: "/assets/images/logo/LogoBEE_WhiteBackground.png"
+    url: "https://beeverycreative.com/"
+  - name: "Fusedminds"
+    img_url: "/assets/images/logo/fusedminds.jpg"
+    url: "http://www.fusedminds.pt/"
+  - name: ""
+    img_url: "https://d3nevzfk7ii3be.cloudfront.net/igi/nG1MvGbrC2wopi5H.standard"
+    url: "https://www.ifixit.com/"
+  - name: ""
+    img_url: "/assets/images/logo/litoprint.png"
+    url: "http://www.litoprint.pt/"
+  - name: ""
+    img_url: "/assets/images/logo/sugru.jpg"
+    url: "http://www.sugru.com"
+  - name: ""
+    img_url: "http://www.loja.tek4all.org/img/tek4all-solucao-informatica-logo-1449616460.jpg"
+    url: "http://www.loja.tek4all.org/"
+  - name: ""
+    img_url: "/assets/images/logo/ua.jpg"
+    url: "http://www.ua.pt/"

@@ -1,0 +1,35 @@
+/*
+  THIS CODE IS NOT OURS/MINE
+  CAME FROM: https://css-tricks.com/seamless-responsive-photo-grid/
+  AND WAS ADAPTED TO STYLUS
+*/
+@require "_variables"
+
+_normalizeLink(color = color-default)
+  text-decoration: none
+  color: color
+
+.imagegrid
+  display: flex
+  flex-wrap: wrap
+  justify-content: space-around
+
+  div
+    margin: 2em
+    color: color-default
+    
+    a
+    a:link
+    a:visited
+    a:active
+      _normalizeLink()
+
+    a:hover
+      _normalizeLink(color-link)
+
+    img
+      max-height: 160px
+      max-width: 300px
+      //width: 100% !important
+      height: auto !important
+      margin: 0
