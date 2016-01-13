@@ -5,10 +5,11 @@ avatar: /assets/images/logo/icarus.png
 # Header
 menu:
   home: .
-  archives: archives
+  #archives: archives
   #categories: categories.html
-  #tags: tags.html
+  tags: tags.html
   partners: partners.html
+  mission: mission.html
   about: about.html
 
 # Content
