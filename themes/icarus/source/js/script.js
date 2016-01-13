@@ -1,6 +1,4 @@
 (function($){
-  var toTop = $('#toTop').length ? $('#toTop').offset().top - $(window).height() + 20 : 0;
-
   // Share
   $('body').on('click', function(){
     $('.article-share-box.on').removeClass('on');
@@ -88,16 +86,12 @@
 
   // To Top
   $(document).on('scroll', function () {
-    if ($(document).width() >= 800) {
-      if($(this).scrollTop() > toTop) {
-        $('#toTop').addClass('fix');
-        $('#toTop').css('left', $('#sidebar').offset().left);
-      } else {
-        $('#toTop').removeClass('fix');
-      }
+    if($(this).scrollTop() > window.screen.height / 3) {
+      console.log('Show')
+      $('#toTop').addClass('fix')
     } else {
-      $('#toTop').addClass('fix');
-      $('#toTop').css('right', 20);
+      console.log('Hide')
+      $('#toTop').removeClass('fix')
     }
   }).on('click', '#toTop', function () {
     $(document).scrollTop(0);
