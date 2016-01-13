@@ -87,14 +87,12 @@
   // To Top
   $(document).on('scroll', function () {
     if($(this).scrollTop() > window.screen.height / 3) {
-      console.log('Show')
-      $('#toTop').addClass('fix')
+      $('#toTop').fadeIn()
     } else {
-      console.log('Hide')
-      $('#toTop').removeClass('fix')
+      $('#toTop').fadeOut()
     }
   }).on('click', '#toTop', function () {
-    $(document).scrollTop(0);
+    $('html, body').animate({scrollTop: 0}, 800);
   });
 
 })(jQuery);
