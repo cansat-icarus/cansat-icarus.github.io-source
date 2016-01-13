@@ -1,4 +1,5 @@
 title: "About"
 layout: "page"
 ---
-*About page goes here*
+O site funciona, mas ainda não está pronto!
+Em breve esta página será populada com conteúdo...
