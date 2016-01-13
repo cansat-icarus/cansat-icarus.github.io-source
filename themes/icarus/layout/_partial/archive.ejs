@@ -50,7 +50,7 @@
   case 'tag': %>
     <section class="archives-wrap">
     <div class="archive-tag-wrap">
-      <span class="archive-tag">#<%= page.tag %></span>
+      <span class="archive-tag">#<%= __('tags.'+page.tag) %></span>
     </div>
     <div class="archives">
     <% page.posts.each(function (post, i) { %>
