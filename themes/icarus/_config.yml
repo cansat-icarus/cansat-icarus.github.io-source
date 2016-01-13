@@ -6,8 +6,8 @@ avatar: /assets/images/logo/icarus.png
 menu:
   home: .
   archives: archives
-  categories: categories.html
-  tags: tags.html
+  #categories: categories.html
+  #tags: tags.html
   partners: partners.html
   about: about.html
 
