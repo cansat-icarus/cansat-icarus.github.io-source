@@ -1,3 +1,10 @@
+menu:
+  home: Página Inicial
+  archives: Arquivo
+  categories: Categorias
+  tags: Tags
+  partners: Patrocínios
+  about: Acerca
 index:
   home: 'Página Inicial'
   search: 'Pesquisa'

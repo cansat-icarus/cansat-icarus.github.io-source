@@ -1,3 +1,10 @@
+menu:
+  home: Home
+  archives: Archives
+  categories: Categories
+  tags: Tags
+  partners: Sponsors
+  about: About
 index:
   home: 'home'
   search: 'Search'
