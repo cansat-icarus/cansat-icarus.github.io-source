@@ -22,11 +22,8 @@ gravatar: false # Whether to use gravatar with the email. If you do, put your em
 # Sidebar
 sidebar: right # set to false if you don't want a sidebar
 widgets:
-- recent_posts
-- category
-- tag
-- tagcloud
-- archive
+  - profile
+  - archive
 thumbnail: true
 
 # Contacts
