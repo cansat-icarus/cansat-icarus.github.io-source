@@ -13,8 +13,10 @@
     if(localStorage.language == 'pt')
       return true
 
-    if(navigator.language.startsWith('pt'))
+    if(navigator.language.startsWith('pt')) {
+      localStorage.language = 'pt'
       return true
+    }
   }
 
   if(usePt()) {
