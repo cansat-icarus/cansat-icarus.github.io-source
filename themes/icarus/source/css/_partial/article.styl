@@ -11,9 +11,14 @@
 
 .article-meta
   clearfix()
+  display: flex
+  flex-flow: row wrap
+  align-content: space-around
+
   & > div
     margin-bottom: 5px
-  .article-date, .article-category
+  .article-date, .article-category, .article-author
+    line-height: 1em
     margin-right: 10px
     color: color-default + #444
   a
@@ -23,11 +28,8 @@
 
 .article-date
   @extend $block-caption
-  float: left
 
 .article-category
-  float: left
-  line-height: 1em
   color: color-default
   .fa-angle-right
     margin: 0 5px
@@ -357,10 +359,10 @@ ol.toc
   font-size 0.8em
   float right
   .toc
-    padding 0 
+    padding 0
     li
       list-style-type none
-  .toc-child 
+  .toc-child
     padding-left 0em
 #toc.toc-aside
   display none

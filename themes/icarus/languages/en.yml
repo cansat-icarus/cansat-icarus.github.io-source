@@ -4,6 +4,7 @@ menu:
   categories: Categories
   tags: Tags
   partners: Sponsors
+  mission: Mission
   about: About
 index:
   home: 'home'
@@ -35,3 +36,5 @@ profile:
   tag: 'tag'
   posts: 'posts'
   tags: 'tags'
+tags:
+  code: 'Code'

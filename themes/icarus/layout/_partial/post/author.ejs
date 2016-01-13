@@ -1,0 +1,6 @@
+<% if (author && post.author) { %>
+  <div class="article-author tooltip" title="<%= post.author.about %>">
+    <i class="fa fa-user"></i>
+    <%= post.author.name %>
+  </div>
+<% } %>

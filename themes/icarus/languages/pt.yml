@@ -4,6 +4,7 @@ menu:
   categories: Categorias
   tags: Tags
   partners: Patrocínios
+  mission: Missão
   about: Acerca
 index:
   home: 'Página Inicial'
@@ -35,3 +36,5 @@ profile:
   tag: 'tag'
   posts: 'posts'
   tags: 'tags'
+tags:
+  code: 'Código'
