@@ -14,7 +14,7 @@
           </div>
         </nav>
       <% } %>
-      <div id="search-form-wrap">
+      <!--<div id="search-form-wrap">
         <% if (config.swiftype_install_key) { %>
           <form class="search-form">
             <input type="text" class="st-default-search-input search-form-input" placeholder="<%= __('index.search') %>">
@@ -23,7 +23,7 @@
         <% } else { %>
           <%- search_form({ button: ' ', text: __('index.search') }) %>
         <% } %>
-      </div>
+      </div>-->
       <div id="lang-selector">
         <%
         var i = 0;
@@ -52,7 +52,7 @@
         <% for (var i in theme.menu) { %>
           <td><a class="main-nav-link" href="<%- url_for(theme.menu[i]) %>"><%= __('menu.'+i) %></a></td>
         <% } %>
-        <td>
+        <!--<td>
           <% if (config.swiftype_install_key) { %>
             <div class="search-form">
               <input type="text" class="st-default-search-input search-form-input" placeholder="<%= __('index.search') %>">
@@ -60,7 +60,7 @@
           <% } else { %>
             <%- search_form({ text: __('index.search') }) %>
           <% } %>
-        </td>
+        </td>-->
       </tr>
     </table>
   </div>
