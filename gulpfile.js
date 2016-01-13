@@ -1,12 +1,24 @@
 var fs = require('fs')
 var path = require('path')
 var gulp = require('gulp')
+var changed = require('gulp-changed')
 var BrowserSync = require('browser-sync')
 var Hexo = require('hexo')
 var rimraf = require('rimraf')
 var mkdirp = require('mkdirp')
-var ncp = require('ncp').ncp
 var runSequence = require('run-sequence')
+var browserSync = BrowserSync.create()
+
+// Directory copy helper, doesn't copy already existing files
+function copy(src, dest, base, cb) {
+  cb = cb || function() {}
+  var opts = !!base ? {base: base} : {}
+
+  return gulp.src(src, opts)
+    .pipe(changed(dest))
+    .pipe(gulp.dest(dest))
+    .on('finish', cb)
+}
 
 // Hexo object creation helper
 function getHexo(subdir) {
@@ -15,57 +27,57 @@ function getHexo(subdir) {
 
 gulp.task('clean', cb => rimraf('dist', cb))
 
-gulp.task('build', function(cb) {
-  // Create output dir
-  mkdirp('dist', function(err) {
-    if(err)
-      return cb(err)
-
-    // Create .nojekyll to prevent github from running us through publishing steps
-    fs.writeFileSync('dist/.nojekyll', '')
-
-    // Run the things
-    runSequence(['build:en', 'build:pt', 'assets'], 'copyFiles', cb)
-  })
+gulp.task('build', ['build:en', 'build:pt', 'assets', 'copyFiles'], cb => {
+  // Create .nojekyll to prevent github from running us through publishing steps
+  fs.writeFile('dist/.nojekyll', '', cb)
 })
 
 function build(subdir) {
   return function(cb) {
-    rimraf('dist/'+subdir, function(err) {
-      if(err)
-        return cb(err)
-
-      var hexo = getHexo(subdir)
-      hexo.init()
-        .then(() => hexo.call('generate', {}))
-        .then(() => hexo.exit())
-        .then(() => {
-          ncp(subdir+'/public', 'dist/'+subdir, err => {
-            if(err)
-              return cb(err)
-
-            fs.writeFile('dist/'+subdir+'/.buildtimestamp', Date.now(), cb)
-          })
-        })
-    })
+    var hexo = getHexo(subdir)
+    hexo.init()
+      .then(() => hexo.call('generate', {}))
+      .then(() => hexo.exit())
+      .then(() => copy(subdir+'/public/**/*', 'dist/'+subdir, subdir+'/public', cb))
   }
 }
-gulp.task('build:en', build('en'))
-gulp.task('build:pt', build('pt'))
-gulp.task('assets', cb => ncp('assets', 'dist/assets', cb))
-gulp.task('copyFiles', () => gulp.src(['index.html']).pipe(gulp.dest('dist')))
+gulp.task('build:dir', cb => {
+  fs.stat('dist', (err, stats) => {
+    if(!err && stats.isDirectory())
+      return cb()
+
+    console.log('Creating dir', stats)
+    //mkdirp('dist', () => {
+    //  console.log('finished')
+      cb()
+    //})
+  })
+})
+gulp.task('build:en', ['build:dir'], build('en'))
+gulp.task('build:pt', ['build:dir'], build('pt'))
+gulp.task('assets', ['build:dir'], () => copy('assets/**/*', 'dist/assets'))
+gulp.task('copyFiles', ['build:dir'], () => copy('index.html', 'dist'))
 
 gulp.task('default', ['watch'])
-gulp.task('watch', ['build'], function() {
-  var browserSync = BrowserSync.create()
 
-  browserSync.init(['dist/assets/**/*', 'dist/index.html', 'dist/.buildtimestamp'], {
+function gulpTaskReload(task) {
+  console.log('Reloading...')
+  return gulp.start(task, () => {
+    if(!browserSync.active)
+      return
+
+    console.log('Really reloading')
+    browserSync.reload()
+  })
+}
+gulp.task('watch', ['build'], () => {
+  browserSync.init('dist/**/*', {
     server: { baseDir: 'dist' }
   })
 
   // Watch and rebuild hexo
-  gulp.watch('pt/**/*', ['build:pt'])
-  gulp.watch('en/**/*', ['build:en'])
-  gulp.watch('assets/**/*', ['assets'])
-  gulp.watch('index.html', ['copyFiles'])
+  browserSync.watch('pt/**/*', gulpTaskReload('build:pt'))
+  browserSync.watch('en/**/*', gulpTaskReload('build:en'))
+  browserSync.watch('assets/**/*', gulpTaskReload('assets'))
+  browserSync.watch('index.html', gulpTaskReload('copyFiles'))
 })
