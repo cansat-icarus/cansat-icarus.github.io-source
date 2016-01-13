@@ -36,6 +36,7 @@ function build(subdir) {
   return function(cb) {
     var hexo = getHexo(subdir)
     hexo.init()
+      .then(() => hexo.call('clean', {}))
       .then(() => hexo.call('generate', {}))
       .then(() => hexo.exit())
       .then(() => copy(subdir+'/public/**/*', 'dist/'+subdir, subdir+'/public', cb))
@@ -76,8 +77,8 @@ gulp.task('watch', ['build'], () => {
   })
 
   // Watch and rebuild hexo
-  browserSync.watch('pt/**/*', gulpTaskReload('build:pt'))
-  browserSync.watch('en/**/*', gulpTaskReload('build:en'))
+  browserSync.watch(['pt/_config.yml', 'pt/source/**/*', 'themes/**/*'], gulpTaskReload('build:pt'))
+  browserSync.watch(['pt/_config.yml', 'pt/source/**/*', 'themes/**/*'], gulpTaskReload('build:en'))
   browserSync.watch('assets/**/*', gulpTaskReload('assets'))
   browserSync.watch('index.html', gulpTaskReload('copyFiles'))
 })
