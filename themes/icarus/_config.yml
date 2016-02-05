@@ -31,11 +31,10 @@ contacts:
   facebook: 'https://www.facebook.com/Icarus-1662440837332463'
   instagram: 'https://www.instagram.com/icarus_esap/'
   github: 'https://github.com/cansat-icarus'
+  email:
+    icon: envelope
+    href: 'mailto:cansatesap@gmail.com'
   rss: /:lang/atom.xml
-
-# Links
-links:
-  Hexo: http://hexo.io
 
 # CDN
 cdn: # You can choose "useso" instead of "google apis"(default).

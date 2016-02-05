@@ -22,7 +22,7 @@
       <table class="contact-list">
         <tr>
           <% for(var i in theme.contacts) { %>
-          <td><a href="<%- url_for(theme.contacts[i]).replace(':lang', config.language) %>" target="_blank" title="<%= i %>"><i class="fa fa-<%= i %>"></i></a></td>
+          <td><a href="<%- url_for(theme.contacts[i].href || theme.contacts[i]).replace(':lang', config.language) %>" target="_blank" title="<%= i %>"><i class="fa fa-<%= theme.contacts[i].icon || i %>"></i></a></td>
           <% } %>
         </tr>
       </table>
