@@ -1,2 +1,4 @@
 name: 'André Breda'
-about: 'Programmer: produces code out of pizza and sleepless nights.'
+about:
+  en: 'Programmer: produces code out of pizza and sleepless nights'
+  pt: 'Programador: produz código a partir de pizza e noites sem dormir'
