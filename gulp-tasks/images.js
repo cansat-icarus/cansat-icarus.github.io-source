@@ -8,18 +8,16 @@
  * subject to an additional IP rights grant found at http://polymer.github.io/PATENTS.txt
  */
 
-'use strict';
-
-const imagemin = require('gulp-imagemin');
+const imagemin = require('gulp-imagemin')
 
 // Returns a WriteableStream to process images
 function minify() {
 	return imagemin({
 		progressive: true,
 		interlaced: true
-	});
+	})
 }
 
 module.exports = {
-	minify: minify
-};
+	minify
+}

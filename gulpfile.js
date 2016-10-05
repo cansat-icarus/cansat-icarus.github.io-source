@@ -8,13 +8,12 @@
  * subject to an additional IP rights grant found at http://polymer.github.io/PATENTS.txt
  */
 
-'use strict';
-
-const path = require('path');
-const gulp = require('gulp');
-const gulpif = require('gulp-if');
+const path = require('path')
+const gulp = require('gulp')
+const gulpif = require('gulp-if')
 const babel = require('gulp-babel')
 const xo = require('gulp-xo')
+const wct = require('web-component-tester').test
 
 // Got problems? Try logging 'em
 // const logging = require('plylog');
@@ -42,14 +41,14 @@ global.config = {
 	swPrecacheConfig: {
 		navigateFallback: '/index.html'
 	}
-};
+}
 
 // Add your own custom gulp tasks to the gulp-tasks directory
 // A few sample tasks are provided for you
 // A task should return either a WriteableStream or a Promise
-const clean = require('./gulp-tasks/clean.js');
-const images = require('./gulp-tasks/images.js');
-const project = require('./gulp-tasks/project.js');
+const clean = require('./gulp-tasks/clean.js')
+const images = require('./gulp-tasks/images.js')
+const project = require('./gulp-tasks/project.js')
 
 // The source task will split all of your source files into one
 // big ReadableStream. Source files are those in src/** as well as anything
@@ -72,7 +71,7 @@ function source() {
 // case you need it :)
 function dependencies() {
 	return project.splitDependencies()
-		.pipe(project.rejoin());
+		.pipe(project.rejoin())
 }
 
 // Lint JavaScript with XO

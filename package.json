@@ -29,9 +29,10 @@
       },
       "version": "^0.13.0"
     },
+    "merge-stream": "^1.0.0",
     "plylog": "^0.4.0",
-    "polymer-build": "^0.4.0",
-    "web-component-tester": "^4.3.4"
+    "web-component-tester": "^4.3.4",
+    "polymer-build": "^0.4.0"
   },
   "babel": {
     "presets": [

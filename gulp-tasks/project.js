@@ -8,17 +8,16 @@
  * subject to an additional IP rights grant found at http://polymer.github.io/PATENTS.txt
  */
 
-'use strict';
+const path = require('path')
+const gulp = require('gulp')
+const mergeStream = require('merge-stream')
+const polymer = require('polymer-build')
 
-const path = require('path');
-const gulp = require('gulp');
-const mergeStream = require('merge-stream');
-const polymer = require('polymer-build');
-
-const polymerJSON = require(global.config.polymerJsonPath);
-const project = new polymer.PolymerProject(polymerJSON);
-const bundledPath = path.join(global.config.build.rootDirectory, global.config.build.bundledDirectory);
-const unbundledPath = path.join(global.config.build.rootDirectory, global.config.build.unbundledDirectory);
+// eslint-disable-next-line import/no-dynamic-require
+const polymerJSON = require(global.config.polymerJsonPath)
+const project = new polymer.PolymerProject(polymerJSON)
+const bundledPath = path.join(global.config.build.rootDirectory, global.config.build.bundledDirectory)
+const unbundledPath = path.join(global.config.build.rootDirectory, global.config.build.unbundledDirectory)
 
 // This is the heart of polymer-build, and exposes much of the
 // work that Polymer CLI usually does for you
@@ -33,18 +32,18 @@ const unbundledPath = path.join(global.config.build.rootDirectory, global.config
 // Source files are those in src/** as well as anything
 // added to the sourceGlobs property of polymer.json
 function splitSource() {
-	return project.sources().pipe(project.splitHtml());
+	return project.sources().pipe(project.splitHtml())
 }
 
 // Returns a ReadableStream of all the dependency files
 // Dependency files are those in bower_components/**
 function splitDependencies() {
-	return project.dependencies().pipe(project.splitHtml());
+	return project.dependencies().pipe(project.splitHtml())
 }
 
 // Returns a WriteableStream to rejoin all split files
 function rejoin() {
-	return project.rejoinHtml();
+	return project.rejoinHtml()
 }
 
 // Returns a function which accepts refernces to functions that generate
@@ -53,21 +52,21 @@ function rejoin() {
 // Takes an argument for the user to specify the kind of output they want
 // either bundled or unbundled. If this argument is omitted it will output both
 function merge(source, dependencies) {
-	return function output() {
+	return () => {
 		const mergedFiles = mergeStream(source(), dependencies())
-			.pipe(project.analyzer);
-		const bundleType = global.config.build.bundleType;
-		let outputs = [];
+			.pipe(project.analyzer)
+		const bundleType = global.config.build.bundleType
+		const outputs = []
 
 		if (bundleType === 'both' || bundleType === 'bundled') {
-			outputs.push(writeBundledOutput(polymer.forkStream(mergedFiles)));
+			outputs.push(writeBundledOutput(polymer.forkStream(mergedFiles)))
 		}
 		if (bundleType === 'both' || bundleType === 'unbundled') {
-			outputs.push(writeUnbundledOutput(polymer.forkStream(mergedFiles)));
+			outputs.push(writeUnbundledOutput(polymer.forkStream(mergedFiles)))
 		}
 
-		return Promise.all(outputs);
-	};
+		return Promise.all(outputs)
+	}
 }
 
 // Run the files through a bundling step which will vulcanize/shard them
@@ -76,8 +75,8 @@ function writeBundledOutput(stream) {
 	return new Promise(resolve => {
 		stream.pipe(project.bundler)
 			.pipe(gulp.dest(bundledPath))
-			.on('end', resolve);
-	});
+			.on('end', resolve)
+	})
 }
 
 // Just output files to the dest dir without bundling. This is for projects that
@@ -85,8 +84,8 @@ function writeBundledOutput(stream) {
 function writeUnbundledOutput(stream) {
 	return new Promise(resolve => {
 		stream.pipe(gulp.dest(unbundledPath))
-			.on('end', resolve);
-	});
+			.on('end', resolve)
+	})
 }
 
 // Returns a function which takes an argument for the user to specify the kind
@@ -95,44 +94,44 @@ function writeUnbundledOutput(stream) {
 // If this argument is omitted it will create service workers for both bundled
 // and unbundled output
 function serviceWorker() {
-	const bundleType = global.config.build.bundleType;
-	let workers = [];
+	const bundleType = global.config.build.bundleType
+	const workers = []
 
 	if (bundleType === 'both' || bundleType === 'bundled') {
-		workers.push(writeBundledServiceWorker());
+		workers.push(writeBundledServiceWorker())
 	}
 	if (bundleType === 'both' || bundleType === 'unbundled') {
-		workers.push(writeUnbundledServiceWorker());
+		workers.push(writeUnbundledServiceWorker())
 	}
 
-	return Promise.all(workers);
+	return Promise.all(workers)
 }
 
 // Returns a Promise to generate a service worker for bundled output
 function writeBundledServiceWorker() {
 	return polymer.addServiceWorker({
-		project: project,
+		project,
 		buildRoot: bundledPath,
 		swConfig: global.config.swPrecacheConfig,
 		serviceWorkerPath: global.config.serviceWorkerPath,
 		bundled: true
-	});
+	})
 }
 
 // Returns a Promise to generate a service worker for unbundled output
 function writeUnbundledServiceWorker() {
 	return polymer.addServiceWorker({
-		project: project,
+		project,
 		buildRoot: unbundledPath,
 		swConfig: global.config.swPrecacheConfig,
 		serviceWorkerPath: global.config.serviceWorkerPath
-	});
+	})
 }
 
 module.exports = {
-	splitSource: splitSource,
-	splitDependencies: splitDependencies,
-	rejoin: rejoin,
-	merge: merge,
-	serviceWorker: serviceWorker
-};
+	splitSource,
+	splitDependencies,
+	rejoin,
+	merge,
+	serviceWorker
+}

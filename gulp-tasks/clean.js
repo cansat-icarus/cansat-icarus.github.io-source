@@ -8,15 +8,13 @@
  * subject to an additional IP rights grant found at http://polymer.github.io/PATENTS.txt
  */
 
-'use strict';
-
-const del = require('del');
+const del = require('del')
 
 // Returns a Promise to delete a directory
 function clean() {
-	return del(global.config.build.rootDirectory);
+	return del(global.config.build.rootDirectory)
 }
 
 module.exports = {
 	build: clean
-};
+}

@@ -19,10 +19,8 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 
 	<!-- Import the element to test -->
 	<link rel="import" href="../src/my-view1.html">
-
 </head>
 <body>
-
 	<test-fixture id="basic">
 		<template>
 			 <my-view1></my-view1>
@@ -30,19 +28,18 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 	</test-fixture>
 
 	<script>
-		suite('my-view1 tests', function() {
-			var home;
+		suite('my-view1 tests', () => {
+			let home
 
-			setup(function() {
-				home = fixture('basic');
-			});
-
-			test('Number in circle should be 1', function() {
-				var circle = Polymer.dom(home.root).querySelector('.circle');
-				assert.equal(circle.textContent, '1');
+			setup(() => {
+				home = fixture('basic')
 			})
-		});
-	</script>
 
+			test('Number in circle should be 1', () => {
+				const circle = Polymer.dom(home.root).querySelector('.circle')
+				assert.equal(circle.textContent, '1')
+			})
+		})
+	</script>
 </body>
 </html>
