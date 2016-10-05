@@ -13,6 +13,8 @@
 const path = require('path');
 const gulp = require('gulp');
 const gulpif = require('gulp-if');
+const babel = require('gulp-babel')
+const xo = require('gulp-xo')
 
 // Got problems? Try logging 'em
 // const logging = require('plylog');
@@ -60,7 +62,8 @@ function source() {
 	return project.splitSource()
 		// Add your own build tasks here!
 		.pipe(gulpif('**/*.{png,gif,jpg,svg}', images.minify()))
-		.pipe(project.rejoin()); // Call rejoin when you're finished
+		.pipe(gulpif('**/*.js', babel()))
+		.pipe(project.rejoin()) // Call rejoin when you're finished
 }
 
 // The dependencies task will split all of your bower_components files into one
@@ -72,11 +75,33 @@ function dependencies() {
 		.pipe(project.rejoin());
 }
 
-// Clean the build directory, split all source and dependency files into streams
-// and process them, and output bundled and unbundled versions of the project
-// with their own service workers
-gulp.task('default', gulp.series([
+// Lint JavaScript with XO
+function testLint() {
+	return gulp.src(['{src,gulp-tasks,test}/**/*.{js,html,json}', '*.{js,html,json}'])
+		.pipe(xo())
+}
+
+// Test things with Web Component Tester
+function testWct() {
+	return wct({
+		sauce: false
+	})
+}
+
+const test = gulp.parallel([testLint, testWct])
+const build = gulp.series([
 	clean.build,
 	project.merge(source, dependencies),
 	project.serviceWorker
-]));
+])
+
+// Clean the build directory, split all source and dependency files into streams
+// and process them, and output bundled and unbundled versions of the project
+// with their own service workers
+gulp.task('default', gulp.parallel([test, build]))
+
+gulp.task('build', build)
+
+gulp.task('test', test)
+gulp.task('test:lint', testLint)
+gulp.task('test:wct', testWct)
