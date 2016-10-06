@@ -1,0 +1,15 @@
+<link rel="import" href="../bower_components/app-localize-behavior/app-localize-behavior.html">
+
+<script>
+	App.LocalizeBehavior = [Polymer.AppLocalizeBehavior, {
+		properties: {
+			language: String
+		},
+		ready() {
+			this.loadResources('/src/localization.json')
+		},
+		isPt() {
+			return this.language === 'pt'
+		}
+	}]
+</script>

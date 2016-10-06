@@ -19,6 +19,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 <link rel="import" href="../bower_components/paper-icon-button/paper-icon-button.html">
 <link rel="import" href="../bower_components/iron-pages/iron-pages.html">
 <link rel="import" href="../bower_components/iron-selector/iron-selector.html">
+<link rel="import" href="localize-behavior.html">
 <link rel="import" href="my-icons.html">
 
 <dom-module id="my-app">
@@ -57,22 +58,21 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 			}
 		</style>
 
-		<app-location route="{{route}}"></app-location>
+		<app-location route="{{rootRoute}}"></app-location>
 		<app-route
-				route="{{route}}"
-				pattern="/:page"
-				data="{{routeData}}"
-				tail="{{subroute}}"></app-route>
+				route="{{rootRoute}}"
+				pattern="/:lang"
+				data="{{rootRouteData}}"
+				tail="{{rootRouteTail}}"></app-route>
 
 		<app-drawer-layout fullbleed>
 			<!-- Drawer content -->
 			<app-drawer>
 				<app-toolbar>Menu</app-toolbar>
 				<iron-selector selected="[[page]]" attr-for-selected="name" class="drawer-list" role="navigation">
-					<a name="view1" href="/view1">View One</a>
-					<a name="view2" href="/view2">View Two</a>
-					<a name="view3" href="/view3">View Three</a>
-				</iron-selector>
+					<template is="dom-repeat" items="[[pages]]">
+						<a name="[[item]]" href="/[[language]]/[[item]]">[[localizePageName(item)]]</a>
+					</template>
 			</app-drawer>
 
 			<!-- Main content -->
@@ -80,43 +80,101 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 				<app-header condenses reveals effects="waterfall">
 					<app-toolbar>
 						<paper-icon-button icon="menu" drawer-toggle></paper-icon-button>
-						<div main-title>My App</div>
+						<div main-title>[[localize('name')]]</div>
+						<!-- TODO: create language switcher -->
 					</app-toolbar>
 				</app-header>
 
-				<iron-pages selected="[[page]]" attr-for-selected="name" fallback-selection="view404" role="main">
-					<my-view1 name="view1"></my-view1>
-					<my-view2 name="view2"></my-view2>
-					<my-view3 name="view3"></my-view3>
-					<my-view404 name="view404"></my-view404>
+				<app-route
+					route="{{rootRouteTail}}"
+					pattern="/:page"
+					data="{{pageRouteData}}"></app-route>
+
+				<iron-pages selected="[[page]]" attr-for-selected="name" fallback-selection="e404" role="main">
+					<page-home language="[[language]]" name="home"></page-home>
+					<page-project language="[[language]]" name="project"></page-project>
+					<page-team language="[[language]]" name="team"></page-team>
+					<page-contact language="[[language]]" name="contact"></page-contact>
+					<page-e404 language="[[language]]" name="e404"></page-e404>
 				</iron-pages>
 			</app-header-layout>
 		</app-drawer-layout>
 	</template>
 
 	<script>
+		// Check validity of localStorage language before trying to use it
+		if(localStorage.language !== 'en' && localStorage.language !== 'pt' && !!localStorage.language) {
+			localStorage.removeItem('language')
+		}
+
 		Polymer({
 			is: 'my-app',
+			behaviors: [App.LocalizeBehavior],
 			properties: {
+				rootRoute: Object,
+				rootRouteData: Object,
+				rootRouteTail: Object,
+				pageRouteData: Object,
+				pages: {
+					type: Array,
+					value: ['home', 'project', 'team', 'contact']
+				},
+				localizePageName: {
+					type: Function,
+					computed: '_computeLocalizePageName(localize)'
+				},
 				page: {
 					type: String,
-					reflectToAttribute: true,
 					observer: '_pageChanged'
 				}
 			},
 			observers: [
-				'_routePageChanged(routeData.page)'
+				'_rootRouteChanged(rootRouteData.lang)',
+				'_languageChanged(language)',
+				'_pageRouteChanged(pageRouteData.page)'
 			],
-			_routePageChanged(page) {
-				this.page = page || 'view1'
+			_computeLocalizePageName(localize) {
+				return page => localize('page.'+page)
+			},
+			_rootRouteChanged(language) {
+				if(this._isLangInvalid(language)) {
+					this.rootRouteData.lang = localStorage.language || (navigator.language.includes('pt') ? 'pt' : 'en')
+					language = this.rootRouteData.lang
+				}
+
+				this.language = language
+			},
+			_languageChanged(language) {
+				// Save language preference
+				localStorage.language = language
+			},
+			_isLangInvalid(lang) {
+				return !(lang === 'en' || lang === 'pt')
+			},
+			_pageRouteChanged(page) {
+				if (!page || page === '') {
+					this.set('pageRouteData.page', 'home')
+					return
+				}
+
+				if (this.page !== page) this.page = page 
+
+				// Load page import on demand. Show 404 page if fails
+				this._loadPage(page)
 			},
 			_pageChanged(page) {
-				// Load page import on demand. Show 404 page if fails
-				const resolvedPageUrl = this.resolveUrl('my-' + page + '.html')
+				// Don't ruin the trickery with e404, and don't set the same thing twice
+				if (this.pageRouteData.page === page || page === 'e404') return
+				this.set('pageRouteData.page', page)
+			},
+			_loadPage(page) {
+				const resolvedPageUrl = this.resolveUrl('pages/page-' + page + '.html')
 				this.importHref(resolvedPageUrl, null, this._showPage404, true)
 			},
 			_showPage404() {
-				this.page = 'view404'
+				// Keep current URL
+				this.page = 'e404'
+				this._loadPage('e404')
 			}
 		})
 	</script>
