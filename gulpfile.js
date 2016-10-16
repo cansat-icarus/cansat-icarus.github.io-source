@@ -1,5 +1,5 @@
 /**
- * @license
+ * @license (for original file)
  * Copyright (c) 2016 The Polymer Project Authors. All rights reserved.
  * This code may only be used under the BSD style license found at http://polymer.github.io/LICENSE.txt
  * The complete set of authors may be found at http://polymer.github.io/AUTHORS.txt
@@ -9,46 +9,31 @@
  */
 
 const path = require('path')
+const del = require('del')
 const gulp = require('gulp')
-const gulpif = require('gulp-if')
+const autoprefixer = require('gulp-autoprefixer')
 const babel = require('gulp-babel')
-const xo = require('gulp-xo')
-const wct = require('web-component-tester').test
+const cleanCSS = require('gulp-clean-css')
+const htmlmin = require('gulp-htmlmin')
+const gulpif = require('gulp-if')
+const imagemin = require('gulp-imagemin')
+const uglify = require('gulp-uglify')
+const mergeStream = require('merge-stream')
+const polymer = require('polymer-build')
 
 // Got problems? Try logging 'em
-// const logging = require('plylog');
-// logging.setVerbose();
+// require('plylog').setVerbose()
 
-// !!! IMPORTANT !!! //
-// Keep the global.config above any of the gulp-tasks that depend on it
-global.config = {
-	polymerJsonPath: path.join(process.cwd(), 'polymer.json'),
-	build: {
-		rootDirectory: 'build',
-		bundledDirectory: 'bundled',
-		unbundledDirectory: 'unbundled',
-		// Accepts either 'bundled', 'unbundled', or 'both'
-		// A bundled version will be vulcanized and sharded. An unbundled version
-		// will not have its files combined (this is for projects using HTTP/2
-		// server push). Using the 'both' option will create two output projects,
-		// one for bundled and one for unbundled
-		bundleType: 'both'
-	},
-	// Path to your service worker, relative to the build root directory
-	serviceWorkerPath: 'service-worker.js',
-	// Service Worker precache options based on
-	// https://github.com/GoogleChrome/sw-precache#options-parameter
-	swPrecacheConfig: {
-		navigateFallback: '/index.html'
-	}
-}
+// Config
+const buildDir = 'dist'
+const bundledPath = path.join(buildDir, 'bundled')
+const unbundledPath = path.join(buildDir, 'unbundled')
+const swPath = 'service-worker.js'
+const swPrecacheConfig = require('./sw-precache-config')
+const polymerJSON = require('./polymer.json')
 
-// Add your own custom gulp tasks to the gulp-tasks directory
-// A few sample tasks are provided for you
-// A task should return either a WriteableStream or a Promise
-const clean = require('./gulp-tasks/clean.js')
-const images = require('./gulp-tasks/images.js')
-const project = require('./gulp-tasks/project.js')
+// The mighty Polymer Project instance
+const project = new polymer.PolymerProject(polymerJSON)
 
 // The source task will split all of your source files into one
 // big ReadableStream. Source files are those in src/** as well as anything
@@ -58,11 +43,16 @@ const project = require('./gulp-tasks/project.js')
 // out of the stream and run them through specific tasks. An example is provided
 // which filters all images and runs them through imagemin
 function source() {
-	return project.splitSource()
-		// Add your own build tasks here!
-		.pipe(gulpif('**/*.{png,gif,jpg,svg}', images.minify()))
+	return project.sources()
+		.pipe(project.splitHtml())
+		.pipe(gulpif('**/*.{png,gif,jpg,svg}', imagemin({
+			progressive: true,
+			interlaced: true
+		})))
+		.pipe(gulpif('**/*.css', autoprefixer()))
 		.pipe(gulpif('**/*.js', babel()))
-		.pipe(project.rejoin()) // Call rejoin when you're finished
+		.pipe(project.rejoinHtml())
+		.on('error', (...args) => console.error(...args))
 }
 
 // The dependencies task will split all of your bower_components files into one
@@ -70,37 +60,77 @@ function source() {
 // You probably don't need to do anything to your dependencies but it's here in
 // case you need it :)
 function dependencies() {
-	return project.splitDependencies()
-		.pipe(project.rejoin())
+	return project.dependencies()
+		.on('error', (...args) => console.error(...args))
 }
 
-// Lint JavaScript with XO
-function testLint() {
-	return gulp.src(['{src,gulp-tasks,test}/**/*.{js,html,json}', '*.{js,html,json}'])
-		.pipe(xo())
+function build() {
+	const stream = mergeStream(source(), dependencies())
+		.pipe(project.analyzer)
+		.pipe(project.splitHtml())
+		.pipe(gulpif('**/*.js', uglify()))
+		.pipe(gulpif('**/*.html', htmlmin({
+			collapseWhitespace: true,
+			removeComments: true,
+			minifyCSS: true, // just in case there's some leftovers
+			uglifyJS: true
+		})))
+		.pipe(gulpif('**/*.css', cleanCSS()))
+		.pipe(project.rejoinHtml())
+
+	const outputs = []
+	outputs.push(new Promise(resolve => {
+		polymer.forkStream(stream)
+			.pipe(project.bundler)
+			.pipe(gulp.dest(bundledPath))
+			.on('end', resolve)
+	}))
+
+	outputs.push(new Promise(resolve => {
+		polymer.forkStream(stream)
+			.pipe(gulp.dest(unbundledPath))
+			.on('end', resolve)
+	}))
+
+	return Promise.all(outputs)
 }
 
-// Test things with Web Component Tester
-function testWct() {
-	return wct({
-		sauce: false
-	})
+// Clean build directory
+function cleanBuild() {
+	return del(buildDir)
 }
 
-const test = gulp.parallel([testLint, testWct])
-const build = gulp.series([
-	clean.build,
-	project.merge(source, dependencies),
-	project.serviceWorker
-])
+// Generate service workers for bundled and unbundled outputs
+function buildSW() {
+	return Promise.all([
+		polymer.addServiceWorker({
+			project,
+			buildRoot: bundledPath,
+			swConfig: swPrecacheConfig,
+			serviceWorkerPath: swPath,
+			bundled: true
+		}),
+		polymer.addServiceWorker({
+			project,
+			buildRoot: unbundledPath,
+			swConfig: swPrecacheConfig,
+			serviceWorkerPath: swPath
+		})
+	])
+}
+
+// Copies manifest.json to each output
+function copyManifest() {
+	return gulp.src('manifest.json')
+		.pipe(gulp.dest(bundledPath))
+		.pipe(gulp.dest(unbundledPath))
+}
 
 // Clean the build directory, split all source and dependency files into streams
 // and process them, and output bundled and unbundled versions of the project
 // with their own service workers
-gulp.task('default', gulp.parallel([test, build]))
-
-gulp.task('build', build)
-
-gulp.task('test', test)
-gulp.task('test:lint', testLint)
-gulp.task('test:wct', testWct)
+gulp.task('default', gulp.series([
+	cleanBuild,
+	build,
+	gulp.parallel([buildSW, copyManifest])
+]))

@@ -6,7 +6,7 @@
 		"src/pages/page-project.html",
 		"src/pages/page-team.html",
 		"src/pages/page-contact.html",
-		"src/pages/page-404.html"
+		"src/pages/page-e404.html"
 	],
 	"sourceGlobs": [
 	 "src/**/*",
