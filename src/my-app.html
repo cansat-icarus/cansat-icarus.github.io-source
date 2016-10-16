@@ -58,7 +58,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 			}
 		</style>
 
-		<app-location route="{{route}}"></app-location>
+		<app-location route="{{route}}" use-hash-as-path></app-location>
 		<app-route
 				route="{{route}}"
 				pattern="/:lang/:page"
@@ -70,7 +70,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 				<app-toolbar>Menu</app-toolbar>
 				<iron-selector selected="[[page]]" attr-for-selected="name" class="drawer-list" role="navigation">
 					<template is="dom-repeat" items="[[pages]]">
-						<a name="[[item]]" href="/[[language]]/[[item]]" tabindex="-1">
+						<a name="[[item]]" href="/#/[[language]]/[[item]]" tabindex="-1">
 							<paper-item>[[localizePageName(item)]]</paper-item>
 						</a>
 					</template>
