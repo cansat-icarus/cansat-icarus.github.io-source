@@ -37,7 +37,7 @@
     "merge-stream": "^1.0.0",
     "plylog": "^0.4.0",
     "polymer-build": "^0.4.1",
-    "xo": "git://github.com/addobandre/xo.git#more_extensions"
+    "xo": "^0.17.0"
   },
   "babel": {
     "presets": [
