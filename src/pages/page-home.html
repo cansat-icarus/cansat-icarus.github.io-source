@@ -14,11 +14,13 @@
 
 		<paper-material>
 			<h1>[[localize('page.home')]]</h1>
-			<template is="dom-if" if="{{!isPt()}}">
-
+			<template is="dom-if" if="[[!isPt]]">
+					TODO: fancy image and big "see what we're doing" button
+					also, surprise banner will be here...
+					ENGLISH
 			</template>
-			<template is="dom-if" if="{{isPt()}}">
-
+			<template is="dom-if" if="[[isPt]]">
+				Português!
 			</template>
 		</paper-material>
 	</template>

@@ -6,12 +6,16 @@
 	/** @polymerBehavior App.LocalizeBehavior */
 	App.LocalizeBehavior = [Polymer.AppLocalizeBehavior, {
 		properties: {
-			language: String
+			language: String,
+			isPt: {
+				type: Boolean,
+				computed: '_computeIsPt(language)'
+			}
 		},
 		ready() {
 			this.loadResources('/src/localization.json')
 		},
-		isPt() {
+		_computeIsPt() {
 			return this.language === 'pt'
 		}
 	}]

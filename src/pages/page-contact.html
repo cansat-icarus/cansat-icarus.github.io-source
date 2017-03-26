@@ -14,10 +14,10 @@
 
 		<paper-material>
 			<h1>[[localize('page.contact')]]</h1>
-			<template is="dom-if" if="{{!isPt()}}">
+			<template is="dom-if" if="[[!isPt]]">
 
 			</template>
-			<template is="dom-if" if="{{isPt()}}">
+			<template is="dom-if" if="[[isPt]]">
 
 			</template>
 		</paper-material>
