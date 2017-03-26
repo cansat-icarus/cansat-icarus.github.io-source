@@ -16,9 +16,11 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 <link rel="import" href="../bower_components/app-layout/app-header/app-header.html">
 <link rel="import" href="../bower_components/app-layout/app-header-layout/app-header-layout.html">
 <link rel="import" href="../bower_components/app-layout/app-toolbar/app-toolbar.html">
-<link rel="import" href="../bower_components/paper-icon-button/paper-icon-button.html">
 <link rel="import" href="../bower_components/iron-pages/iron-pages.html">
 <link rel="import" href="../bower_components/iron-selector/iron-selector.html">
+<link rel="import" href="../bower_components/paper-icon-button/paper-icon-button.html">
+<link rel="import" href="../bower_components/paper-menu-button/paper-menu-button.html">
+<link rel="import" href="../bower_components/paper-button/paper-button.html">
 <link rel="import" href="localize-behavior.html">
 <link rel="import" href="my-icons.html">
 
@@ -42,19 +44,26 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 			.drawer-list {
 				margin: 0 20px;
 			}
-			.drawer-list a {
+			.drawer-list a, .dropdown-content a {
 				display: block;
 				padding: 0 16px;
 				line-height: 40px;
 				text-decoration: none;
 				color: var(--app-secondary-color);
 			}
-			.drawer-list a.iron-selected {
+			.drawer-list a.iron-selected, .dropdown-content a.iron-selected {
 				color: black;
 				font-weight: bold;
 			}
 			.drawer-list a.subroute {
 				padding-left: 32px;
+			}
+
+			#langSelector {
+				font-size: 0.95em;
+			}
+			#langSelector paper-menu {
+				display: block;
 			}
 		</style>
 
@@ -70,10 +79,11 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 				<app-toolbar>Menu</app-toolbar>
 				<iron-selector selected="[[page]]" attr-for-selected="name" class="drawer-list" role="navigation">
 					<template is="dom-repeat" items="[[pages]]">
-						<a name="[[item]]" href="/#/[[language]]/[[item]]" tabindex="-1">
+						<a name="[[item]]" href="/#/[[language]]/[[item]]">
 							<paper-item>[[localizePageName(item)]]</paper-item>
 						</a>
 					</template>
+				</iron-selector>
 			</app-drawer>
 
 			<!-- Main content -->
@@ -82,7 +92,24 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 					<app-toolbar>
 						<paper-icon-button icon="menu" drawer-toggle></paper-icon-button>
 						<div main-title>[[localize('name')]]</div>
-						<!-- TODO: create language switcher -->
+
+						<!-- Language selector -->
+						<paper-menu-button id="langSelector" vertical-align="bottom" horizontal-align="right">
+							<paper-button class="dropdown-trigger">
+								<iron-icon icon="language"></iron-icon>
+								&nbsp;[[localize('language')]]
+							</paper-button>
+
+							<iron-selector selected="{{language}}" attr-for-selected="name" class="dropdown-content">
+								<a name="pt" href="">
+									<paper-item>Português</paper-item>
+								</a>
+								<a name="en" href="">
+									<paper-item>English</paper-item>
+								</a>
+							</iron-selector>
+						</paper-menu-button>
+
 					</app-toolbar>
 				</app-header>
 
@@ -151,7 +178,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 					return
 				}
 
-				if (this.page !== page) this.page = page 
+				if (this.page !== page) this.page = page
 
 				// Load page import on demand. Show 404 page if fails
 				this._loadPage(page)

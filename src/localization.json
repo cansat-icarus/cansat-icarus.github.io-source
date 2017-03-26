@@ -1,6 +1,7 @@
 {
 	"en": {
 		"name": "Icarus Team",
+		"language": "EN",
 
 		"page.home": "Home",
 		"page.project": "Project",
@@ -15,6 +16,7 @@
 	},
 	"pt": {
 		"name": "Equipa Icarus",
+		"language": "PT",
 
 		"page.home": "Página Inicial",
 		"page.project": "Projeto",
