@@ -43,15 +43,17 @@ const project = new polymer.PolymerProject(polymerJSON)
 // out of the stream and run them through specific tasks. An example is provided
 // which filters all images and runs them through imagemin
 function source() {
+	const htmlSplitter = new polymer.HtmlSplitter()
+
 	return project.sources()
-		.pipe(project.splitHtml())
+		.pipe(htmlSplitter.split())
 		.pipe(gulpif('**/*.{png,gif,jpg,svg}', imagemin({
 			progressive: true,
 			interlaced: true
 		})))
 		.pipe(gulpif('**/*.css', autoprefixer()))
 		.pipe(gulpif('**/*.js', babel()))
-		.pipe(project.rejoinHtml())
+		.pipe(htmlSplitter.rejoin())
 		.on('error', (...args) => console.error(...args))
 }
 
@@ -65,9 +67,10 @@ function dependencies() {
 }
 
 function build() {
+	const htmlSplitter = new polymer.HtmlSplitter()
+
 	const stream = mergeStream(source(), dependencies())
-		.pipe(project.analyzer)
-		.pipe(project.splitHtml())
+		.pipe(htmlSplitter.split())
 		.pipe(gulpif('**/*.js', uglify()))
 		.pipe(gulpif('**/*.html', htmlmin({
 			collapseWhitespace: true,
@@ -76,12 +79,12 @@ function build() {
 			uglifyJS: true
 		})))
 		.pipe(gulpif('**/*.css', cleanCSS()))
-		.pipe(project.rejoinHtml())
+		.pipe(htmlSplitter.rejoin())
 
 	const outputs = []
 	outputs.push(new Promise(resolve => {
 		polymer.forkStream(stream)
-			.pipe(project.bundler)
+			.pipe(project.bundler())
 			.pipe(gulp.dest(bundledPath))
 			.on('end', resolve)
 	}))
@@ -105,16 +108,16 @@ function buildSW() {
 	return Promise.all([
 		polymer.addServiceWorker({
 			project,
+			swPrecacheConfig,
 			buildRoot: bundledPath,
-			swConfig: swPrecacheConfig,
-			serviceWorkerPath: swPath,
+			path: swPath,
 			bundled: true
 		}),
 		polymer.addServiceWorker({
 			project,
+			swPrecacheConfig,
 			buildRoot: unbundledPath,
-			swConfig: swPrecacheConfig,
-			serviceWorkerPath: swPath
+			path: swPath
 		})
 	])
 }
