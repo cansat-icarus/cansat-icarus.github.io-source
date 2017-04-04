@@ -45,16 +45,17 @@
         "env",
         {
           "targets": {
-            "node": "4",
+            "node": 4,
             "browsers": [
               "last 2 versions",
               "> 1% in PT",
+              "> 5%",
               "safari > 8"
             ]
           },
           "modules": "umd"
         }
-      ],
+      ]
     ]
   },
   "xo": {

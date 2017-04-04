@@ -47,11 +47,14 @@ function source() {
 
 	return project.sources()
 		.pipe(htmlSplitter.split())
-		.pipe(gulpif('**/*.{png,gif,jpg,svg}', imagemin({
-			progressive: true,
-			interlaced: true
+		.pipe(gulpif('**/*.css', autoprefixer({
+			browsers: [
+				'last 2 versions',
+				'> 1% in PT',
+				'> 5%',
+				'safari > 8'
+			]
 		})))
-		.pipe(gulpif('**/*.css', autoprefixer()))
 		.pipe(gulpif('**/*.js', babel()))
 		.pipe(htmlSplitter.rejoin())
 		.on('error', (...args) => console.error(...args))
@@ -71,15 +74,17 @@ function build() {
 
 	const stream = mergeStream(source(), dependencies())
 		.pipe(htmlSplitter.split())
+		.pipe(gulpif('**/*.css', cleanCSS()))
 		.pipe(gulpif('**/*.js', uglify()))
+		.pipe(gulpif('**/*.{png,gif,jpg,svg,ico}', imagemin({
+			progressive: true,
+			interlaced: true
+		})))
+		.pipe(htmlSplitter.rejoin())
 		.pipe(gulpif('**/*.html', htmlmin({
 			collapseWhitespace: true,
-			removeComments: true,
-			minifyCSS: true, // just in case there's some leftovers
-			uglifyJS: true
+			removeComments: true
 		})))
-		.pipe(gulpif('**/*.css', cleanCSS()))
-		.pipe(htmlSplitter.rejoin())
 
 	const outputs = []
 	outputs.push(new Promise(resolve => {
