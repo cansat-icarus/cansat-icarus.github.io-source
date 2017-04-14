@@ -5,6 +5,7 @@
 		"src/pages/page-home.html",
 		"src/pages/page-project.html",
 		"src/pages/page-about.html",
+		"src/pages/page-sponsors.html",
 		"src/pages/page-e404.html"
 	],
 	"sourceGlobs": [
