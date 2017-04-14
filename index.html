@@ -104,8 +104,6 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 			}
 		</script>
 
-		<link rel="import" href="src/my-app.html">
-
 		<style>
 			body {
 				margin: 0;
@@ -127,5 +125,13 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 		</my-app>
 
 		<!-- Built with love using Polymer Starter Kit -->
+		<script>
+			// Load the app!
+			const appLink = document.createElement('link')
+			appLink.rel = 'import'
+			appLink.href = 'src/my-app.html'
+
+			document.head.appendChild(appLink)
+		</script>
 	</body>
 </html>
