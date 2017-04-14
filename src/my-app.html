@@ -70,9 +70,10 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 
 		<app-location route="{{route}}" use-hash-as-path></app-location>
 		<app-route
-				route="{{route}}"
-				pattern="/:lang/:page"
-				data="{{routeData}}"></app-route>
+			route="{{route}}"
+			pattern="/:lang/:page"
+			data="{{routeData}}">
+		</app-route>
 
 		<app-drawer-layout fullbleed>
 			<!-- Drawer content -->
@@ -97,7 +98,13 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 						<div main-title>[[localize('name')]]</div>
 
 						<!-- Language selector -->
-						<paper-menu-button id="langSelector" dynamic-align vertical-align="bottom" horizontal-align="right" horizontal-offset="10">
+						<paper-menu-button
+							id="langSelector"
+							dynamic-align
+							vertical-align="bottom"
+							horizontal-align="right"
+							horizontal-offset="10"
+							aria-label="Language Switcher">
 							<paper-button class="dropdown-trigger">
 								<iron-icon icon="language"></iron-icon>
 								&nbsp;[[localize('language')]]
