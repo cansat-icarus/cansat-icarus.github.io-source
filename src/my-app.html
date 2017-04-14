@@ -116,14 +116,15 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 					</app-toolbar>
 				</app-header>
 
-				<iron-pages selected="[[page]]" attr-for-selected="name" fallback-selection="e404" role="main">
-					<page-home language="[[language]]" name="home"></page-home>
-					<page-project language="[[language]]" name="project"></page-project>
-					<page-team language="[[language]]" name="team"></page-team>
-					<page-contact language="[[language]]" name="contact"></page-contact>
-					<page-sponsors language="[[language]]" name="sponsors"></page-sponsors>
-					<page-e404 language="[[language]]" name="e404"></page-e404>
-				</iron-pages>
+				<main>
+					<iron-pages selected="[[page]]" attr-for-selected="name" fallback-selection="e404" role="main">
+						<page-home language="[[language]]" name="home" page="{{routeData.page}}"></page-home>
+						<page-project language="[[language]]" name="project"></page-project>
+						<page-sponsors language="[[language]]" name="sponsors"></page-sponsors>
+						<page-about language="[[language]]" name="about"></page-about>
+						<page-e404 language="[[language]]" name="e404"></page-e404>
+					</iron-pages>
+				</main>
 			</app-header-layout>
 		</app-drawer-layout>
 	</template>
