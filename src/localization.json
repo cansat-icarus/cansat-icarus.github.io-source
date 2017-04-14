@@ -1,6 +1,6 @@
 {
 	"en": {
-		"name": "Icarus Team",
+		"title": "Team Icarus (CanSat 2017)",
 		"language": "EN",
 
 		"page.home": "Home",
@@ -10,13 +10,16 @@
 
 		"about.contact": "Contact us!",
 
+		"home.heroText": "Some lazy developer should probably insert something here...",
+		"home.heroButton": "See what we do",
+
 		"e404.title": "Error 404",
 		"e404.body1": "The page you're looking for was not found. Check the URL and try again.",
 		"e404.body2": "If you think this is an mistake on our end please ",
 		"e404.contactLink": "contact us"
 	},
 	"pt": {
-		"name": "Equipa Icarus",
+		"title": "Equipa Icarus (CanSat 2017)",
 		"language": "PT",
 
 		"page.home": "Página Inicial",
@@ -25,6 +28,9 @@
 		"page.about": "Quem somos",
 
 		"about.contact": "Contacte-nos!",
+
+		"home.heroText": "Some lazy developer should probably insert something here... (PT)",
+		"home.heroButton": "Vê o que fazemos",
 
 		"e404.title": "Erro 404",
 		"e404.body1": "A página a qual tentou aceder não foi encontrada. Verifique o URL e tente novamente.",
