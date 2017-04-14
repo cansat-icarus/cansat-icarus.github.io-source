@@ -5,9 +5,10 @@
 
 		"page.home": "Home",
 		"page.project": "Project",
-		"page.team": "Team",
-		"page.contact": "Contact Us",
 		"page.sponsors": "Sponsors",
+		"page.about": "About Us",
+
+		"about.contact": "Contact us!",
 
 		"e404.title": "Error 404",
 		"e404.body1": "The page you're looking for was not found. Check the URL and try again.",
@@ -20,9 +21,10 @@
 
 		"page.home": "Página Inicial",
 		"page.project": "Projeto",
-		"page.team": "Equipa",
-		"page.contact": "Contacte-nos",
 		"page.sponsors": "Patrocínios",
+		"page.about": "Quem somos",
+
+		"about.contact": "Contacte-nos!",
 
 		"e404.title": "Erro 404",
 		"e404.body1": "A página a qual tentou aceder não foi encontrada. Verifique o URL e tente novamente.",
