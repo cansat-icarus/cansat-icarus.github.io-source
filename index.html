@@ -107,6 +107,13 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 				}
 			})()
 
+			// Load the app!
+			const appLink = document.createElement('link')
+			appLink.rel = 'import'
+			appLink.href = 'src/my-app.html'
+
+			document.head.appendChild(appLink)
+
 			// Warn old browsers of their unsupported status
 			/* eslint-disable */
 			var $buoop = {vs:{i:11,f:-4,o:-4,s:9,c:-4},unsecure:true,c:4};
@@ -125,13 +132,6 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 			if ('serviceWorker' in navigator) {
 				window.addEventListener('load', () => navigator.serviceWorker.register('/service-worker.js'))
 			}
-
-			// Load the app!
-			const appLink = document.createElement('link')
-			appLink.rel = 'import'
-			appLink.href = 'src/my-app.html'
-
-			document.head.appendChild(appLink)
 		</script>
 	</body>
 </html>
