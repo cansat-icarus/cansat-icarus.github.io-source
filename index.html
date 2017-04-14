@@ -49,19 +49,28 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 		<!-- General polyfills auto-selected for the current browser -->
 		<!--<script src="https://cdn.polyfill.io/v2/polyfill.min.js?rum=1&features=Intl.~locale.en,Intl.~locale.pt,default-3.6,setImmediate,String.prototype.includes,Array.prototype.includes,fetch"></script>-->
 
-		<script>
-			// Warn old browsers of their unsupported status
-			/* eslint-disable */
-			var $buoop = {vs:{i:11,f:-4,o:-4,s:9,c:-4},unsecure:true,c:4};
-			function $buo_f(){
-				var e = document.createElement("script");
-				e.src = "//browser-update.org/update.min.js";
-				document.body.appendChild(e);
-			};
-			try {document.addEventListener("DOMContentLoaded", $buo_f,false)}
-			catch(e){window.attachEvent("onload", $buo_f)}
-			/* eslint-enable */
+		<style>
+			body {
+				margin: 0;
+				font-family: 'Roboto', 'Noto', sans-serif;
+				line-height: 1.5;
+				min-height: 100vh;
+				background-color: #eeeeee;
+			}
 
+			#shell-header {
+				height: 64px;
+				background-color: #4285f4;
+			}
+		</style>
+	</head>
+	<body>
+		<my-app>
+			<div id="shell-header"></div>
+		</my-app>
+
+		<!-- Built with love using Polymer Starter Kit -->
+		<script>
 			// Setup App namespace
 			window.App = {}
 
@@ -98,34 +107,25 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 				}
 			})()
 
+			// Warn old browsers of their unsupported status
+			/* eslint-disable */
+			var $buoop = {vs:{i:11,f:-4,o:-4,s:9,c:-4},unsecure:true,c:4};
+			function $buo_f(){
+				var e = document.createElement("script");
+				e.src = "//browser-update.org/update.min.js";
+				e.defer = true
+				e.async = true
+				document.body.appendChild(e);
+			};
+			try {document.addEventListener("DOMContentLoaded", $buo_f,false)}
+			catch(e){window.attachEvent("onload", $buo_f)}
+			/* eslint-enable */
+
 			// Load pre-caching Service Worker
 			if ('serviceWorker' in navigator) {
 				window.addEventListener('load', () => navigator.serviceWorker.register('/service-worker.js'))
 			}
-		</script>
 
-		<style>
-			body {
-				margin: 0;
-				font-family: 'Roboto', 'Noto', sans-serif;
-				line-height: 1.5;
-				min-height: 100vh;
-				background-color: #eeeeee;
-			}
-
-			#shell-header {
-				height: 64px;
-				background-color: #4285f4;
-			}
-		</style>
-	</head>
-	<body>
-		<my-app>
-			<div id="shell-header"></div>
-		</my-app>
-
-		<!-- Built with love using Polymer Starter Kit -->
-		<script>
 			// Load the app!
 			const appLink = document.createElement('link')
 			appLink.rel = 'import'
