@@ -78,13 +78,15 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 			<!-- Drawer content -->
 			<app-drawer>
 				<app-toolbar>Menu</app-toolbar>
-				<iron-selector selected="[[page]]" attr-for-selected="name" class="drawer-list" role="navigation">
-					<template is="dom-repeat" items="[[pages]]">
-						<a name="[[item]]" href="/#/[[language]]/[[item]]">
-							<paper-item>[[localizePageName(item)]]</paper-item>
-						</a>
-					</template>
-				</iron-selector>
+				<nav>
+					<iron-selector selected="[[page]]" attr-for-selected="name" class="drawer-list" role="navigation">
+						<template is="dom-repeat" items="[[pages]]">
+							<a name="[[item]]" href="/#/[[language]]/[[item]]" tabindex="-1">
+								<paper-item>[[localizePageName(item)]]</paper-item>
+							</a>
+						</template>
+					</iron-selector>
+				</nav>
 			</app-drawer>
 
 			<!-- Main content -->
