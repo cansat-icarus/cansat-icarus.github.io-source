@@ -94,6 +94,10 @@
 		Polymer({
 			is: 'page-home',
 			behaviors: [App.LocalizeBehavior],
+			ready() {
+				// The image size is a bit wonky...
+				window.dispatchEvent(new Event('resize'))
+			},
 			goToProject() {
 				App.goToPage('project')
 			}
