@@ -203,6 +203,11 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 				this.page = page
 			},
 			_languageChanged(language) {
+				// Update route language if needed
+				if (this.routeData.lang !== language) {
+					this.set('routeData.lang', language)
+				}
+
 				// Save language preference
 				localStorage.language = language
 			},
