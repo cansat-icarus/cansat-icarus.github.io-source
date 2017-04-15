@@ -198,12 +198,9 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 					return
 				}
 
-				if (this.page !== page) {
-					this.page = page
-				}
 
-				// Load page import on demand. Show 404 page if fails
-				this._loadPage(page)
+				// Update page property (so the right one is shown)
+				this.page = page
 			},
 			_languageChanged(language) {
 				// Save language preference
@@ -213,12 +210,11 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 				return !(lang === 'en' || lang === 'pt')
 			},
 			_pageChanged(page) {
-				// Don't ruin the trickery with e404, and don't set the same thing twice
-				if (this.routeData.page === page || page === 'e404') {
-					return
+				// Load page import on demand. Show 404 page if fails
+				// e404 is loaded differently
+				if (page !== 'e404') {
+					this._loadPage(page)
 				}
-
-				this.set('routeData.page', page)
 			},
 			_updateWindowTitle(page, localizePageName) {
 				if (!page || !localizePageName) {
