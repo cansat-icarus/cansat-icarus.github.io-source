@@ -125,7 +125,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 
 				<main>
 					<iron-pages selected="[[page]]" attr-for-selected="name" fallback-selection="e404" role="main">
-						<page-home language="[[language]]" name="home" page="{{routeData.page}}"></page-home>
+						<page-home language="[[language]]" name="home"></page-home>
 						<page-project language="[[language]]" name="project"></page-project>
 						<page-sponsors language="[[language]]" name="sponsors"></page-sponsors>
 						<page-about language="[[language]]" name="about"></page-about>
@@ -166,6 +166,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 			],
 			ready() {
 				this._routeChanged(this.routeData.language, this.routeData.page)
+				App.goToPage = page => this.set('routeData.page', page)
 			},
 			_computeLocalizePageName(localize) {
 				return page => localize('page.' + page)

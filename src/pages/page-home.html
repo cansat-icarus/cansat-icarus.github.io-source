@@ -93,15 +93,9 @@
 	<script>
 		Polymer({
 			is: 'page-home',
-			properties: {
-				page: {
-					type: String,
-					notify: true
-				}
-			},
 			behaviors: [App.LocalizeBehavior],
 			goToProject() {
-				this.page = 'project'
+				App.goToPage('project')
 			}
 		})
 	</script>
