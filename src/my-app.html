@@ -161,7 +161,8 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 			observers: [
 				'_routeChanged(routeData.lang, routeData.page)',
 				'_languageChanged(language)',
-				'_pageChanged(page)'
+				'_pageChanged(page)',
+				'_updateWindowTitle(page, localizePageName)'
 			],
 			ready() {
 				this._routeChanged(this.routeData.language, this.routeData.page)
@@ -212,6 +213,14 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 				}
 
 				this.set('routeData.page', page)
+			},
+			_updateWindowTitle(page, localizePageName) {
+				if (!page || !localizePageName) {
+					return
+				}
+
+				// Update window title
+				document.title = localizePageName(page)
 			},
 			_loadPage(page) {
 				const resolvedPageUrl = this.resolveUrl('pages/page-' + page + '.html')
