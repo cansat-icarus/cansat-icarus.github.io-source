@@ -156,7 +156,13 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 			behaviors: [App.LocalizeBehavior],
 			properties: {
 				route: Object,
-				routeData: Object,
+				routeData: {
+					type: Object,
+					value: () => ({
+						page: 'home',
+						lang: App.guessLanguage()
+					})
+				},
 				pages: {
 					type: Array,
 					value: ['home', 'project', 'sponsors', 'about']
@@ -171,36 +177,32 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 				'_routeChanged(routeData.lang, routeData.page)',
 				'_languageChanged(language)',
 				'_pageChanged(page)',
-				'_updateWindowTitle(page, localizePageName)'
+				'_updateWindowTitle(page, localizePageName)',
+				'_pathChanged(route.path)'
 			],
 			ready() {
-				this._routeChanged(this.routeData.language, this.routeData.page)
 				App.goToPage = page => this.set('routeData.page', page)
+			},
+			_pathChanged(path) {
+				// Fix empty path stopping the router
+				if (!path) {
+					// Redirect to home, force language autodetection
+					this.set('route.path', `/${App.guessLanguage()}/home`)
+				}
 			},
 			_computeLocalizePageName(localize) {
 				return page => localize('page.' + page)
 			},
 			_routeChanged(language, page) {
+				// Invalid/Empty language?
 				if (this._isLangInvalid(language)) {
 					this.set('routeData.lang', App.guessLanguage())
 
-					// First time we're doing this we cannot return early or the page will freeze
-					// The observer will only be fired again if both parameters are not undefined
-					if (page) {
-						return
-					}
-				}
-
-				this.language = language
-
-				if (!page || page === '') {
-					page = 'home'
-					this.set('routeData.page', page)
-
-					// The setter above will always trigger the rest so... why bother?
 					return
 				}
 
+				// Update language property for proper localization
+				this.language = language
 
 				// Update page property (so the right one is shown)
 				this.page = page
