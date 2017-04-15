@@ -227,7 +227,18 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 				this.importHref(resolvedPageUrl, null, this._showPage404, true)
 			},
 			_showPage404() {
-				// Keep current URL
+				if (this.page === 'e404') {
+					// We're hitting a loop
+					document.body.innerHTML = `<h1>Error 404</h1>
+					<p>The page you were looking for was not found. The regular 404 page was also not found...
+					So, either you really messed up the URL or we really messed up our site</p>
+					<p>Seriously, you should never see this page. It's bad, but don't worry!
+					Our data survives regardless of the website downtime.</p>
+					<p>Just one more thing: please warn us about this by email.
+					Our email is <a href="mailto:cansatesap@gmail.com">cansatesap@gmail.com</a>.</p>`
+				}
+
+				// Keep current URL, just change what page we're showing
 				this.page = 'e404'
 				this._loadPage('e404')
 			}
