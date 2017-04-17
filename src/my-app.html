@@ -22,6 +22,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 <link rel="import" href="../bower_components/paper-menu-button/paper-menu-button.html">
 <link rel="import" href="../bower_components/paper-item/paper-item.html">
 <link rel="import" href="../bower_components/paper-button/paper-button.html">
+<link rel="import" href="../bower_components/paper-toast/paper-toast.html">
 <link rel="import" href="localize-behavior.html">
 <link rel="import" href="my-icons.html">
 
@@ -139,6 +140,11 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 				</main>
 			</app-header-layout>
 		</app-drawer-layout>
+
+		<paper-toast id="updateToast" always-on-top auto-fit-on-attach duration="10000">
+			[[localize('reloadToUpdate.message')]]
+			<paper-button on-tap="window.location.reload()">[[localize('reloadToUpdate.buttonText')]]</paper-button>
+		</paper-toast>
 	</template>
 
 	<script>
@@ -181,7 +187,17 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 				'_pathChanged(route.path)'
 			],
 			ready() {
+				// Expose routing
 				App.goToPage = page => this.set('routeData.page', page)
+
+				if (navigator.serviceWorker) {
+					// Detect SW updates
+					navigator.serviceWorker.ready.then(registration => {
+						registration.addEventListener('updatefound', () => {
+							this.$.updateToast.show()
+						})
+					})
+				}
 			},
 			_pathChanged(path) {
 				// Fix empty path stopping the router

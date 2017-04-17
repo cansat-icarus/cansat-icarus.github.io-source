@@ -16,7 +16,10 @@
 		"e404.title": "Error 404",
 		"e404.body1": "The page you're looking for was not found. Check the URL and try again.",
 		"e404.body2": "If you think this is an mistake on our end please ",
-		"e404.contactLink": "contact us"
+		"e404.contactLink": "contact us",
+
+		"reloadToUpdate.message": "New or updated content is available.",
+		"reloadToUpdate.buttonText": "Reload To Update"
 	},
 	"pt": {
 		"title": "Equipa Icarus (CanSat 2017)",
@@ -35,6 +38,9 @@
 		"e404.title": "Erro 404",
 		"e404.body1": "A página a qual tentou aceder não foi encontrada. Verifique o URL e tente novamente.",
 		"e404.body2": "Se acredita que este é um erro da nossa parte por favor ",
-		"e404.contactLink": "contacte-nos"
+		"e404.contactLink": "contacte-nos",
+
+		"reloadToUpdate.message": "Conteúdo novo ou atualizado está disponível.",
+		"reloadToUpdate.buttonText": "Recarregar Página para Atualizar"
 	}
 }
