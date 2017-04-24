@@ -21,7 +21,7 @@
 		"images/sponsors/ifixit.jpeg",
 		"images/sponsors/sugru.jpg",
 		"images/sponsors/talentsandtreasures.png",
-		"images/sponsors/ua.jpg"
+		"images/sponsors/ua.png"
 	],
 	"lint": {
 		"rules": ["polymer-1"]
