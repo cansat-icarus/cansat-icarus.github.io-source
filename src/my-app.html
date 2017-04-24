@@ -68,10 +68,24 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 				display: block;
 			}
 
-			main, iron-pages {
-				height: 100%;
+			main {
 				width: 100%;
 			}
+
+			footer, iron-pages > * {
+				margin: 24px;
+			}
+
+			@media screen and (max-width: 450px) {
+				footer, iron-pages > * {
+					margin: 5px;
+				}
+			}
+
+			page-home {
+				margin: 0;
+			}
+
 			footer {
 				display: flex;
 				justify-content: space-around;
