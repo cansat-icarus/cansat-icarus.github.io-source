@@ -72,6 +72,28 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 				height: 100%;
 				width: 100%;
 			}
+			footer {
+				display: flex;
+				justify-content: space-around;
+				align-items: center;
+				flex-wrap: wrap;
+			}
+
+			footer img {
+				margin: 0 10px;
+				max-width: 100px;
+				max-height: 100px;
+				height: auto;
+				width: auto;
+			}
+
+			footer img[alt="Ciência Viva Logo"] {
+				padding-bottom: 6px;
+			}
+
+			footer img[alt="CanSat Portugal Logo"] {
+				padding-bottom: 50px;
+			}
 		</style>
 
 		<app-location route="{{route}}" use-hash-as-path></app-location>
@@ -137,6 +159,33 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 						<page-about language="[[language]]" name="about"></page-about>
 						<page-e404 language="[[language]]" name="e404"></page-e404>
 					</iron-pages>
+
+					<footer>
+						<picture>
+							<img src="/images/icarus_blackfg.png" alt="Team Icarus Logo">
+						</picture>
+						<div style="flex: 1;"></div>
+						<a href="http://www.esa.int/ESA" target="_blank">
+							<picture>
+								<img src="/images/cansat-org/esa.png" alt="ESA Logo">
+							</picture>
+						</a>
+						<a href="http://cienciaviva.pt/home/" target="_blank">
+							<picture>
+								<img src="/images/cansat-org/ciencia-viva.png" alt="Ciência Viva Logo">
+							</picture>
+						</a>
+						<a href="http://www.cienciaviva.pt/esero/home/" target="_blank">
+							<picture>
+								<img src="/images/cansat-org/esero-portugal.png" alt="ESERO Portugal Logo">
+							</picture>
+						</a>
+						<a href="http://www.cienciaviva.pt/esero/iniciativas/?accao=showini&id_i=227" target="_blank">
+							<picture>
+								<img src="/images/cansat-org/cansat-portugal.png" alt="CanSat Portugal Logo">
+							</picture>
+						</a>
+					</footer>
 				</main>
 			</app-header-layout>
 		</app-drawer-layout>
