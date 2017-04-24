@@ -15,13 +15,7 @@
 	],
 	"includeDependencies": [
 		"bower_components/webcomponentsjs/webcomponents-lite.min.js",
-		"images/team.jpeg",
-		"images/sponsors/beeverycreative.png",
-		"images/sponsors/fusedminds.jpg",
-		"images/sponsors/ifixit.jpeg",
-		"images/sponsors/sugru.jpg",
-		"images/sponsors/talentsandtreasures.png",
-		"images/sponsors/ua.png"
+		"src/localization.json"
 	],
 	"lint": {
 		"rules": ["polymer-1"]
