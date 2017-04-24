@@ -20,5 +20,23 @@
 	],
 	"lint": {
 		"rules": ["polymer-1"]
-	}
+	},
+	"builds": [
+		{
+			"name": "bundled",
+			"bundle": true,
+			"addServiceWorker": true,
+			"swPrecacheConfig": "sw-precache-config.js",
+			"css": {
+				"minify": true
+			},
+			"js": {
+				"minify": true,
+				"compile": true
+			},
+			"html": {
+				"minify": true
+			}
+		}
+	]
 }
