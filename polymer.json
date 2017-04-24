@@ -8,12 +8,13 @@
 		"src/pages/page-sponsors.html",
 		"src/pages/page-e404.html"
 	],
-	"sourceGlobs": [
-	 "src/**/*",
-	 "images/**/*",
-	 "bower.json"
+	"sources": [
+		"index.html",
+		"src/**/*",
+		"images/**/*",
+		"bower.json"
 	],
-	"includeDependencies": [
+	"extraDependencies": [
 		"bower_components/webcomponentsjs/webcomponents-lite.min.js",
 		"src/localization.json"
 	],
