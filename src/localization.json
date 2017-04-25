@@ -1,6 +1,7 @@
 {
 	"en": {
 		"title": "Team Icarus (CanSat 2017)",
+		"name": "Team Icarus",
 		"language": "EN",
 
 		"page.home": "Home",
@@ -23,6 +24,7 @@
 	},
 	"pt": {
 		"title": "Equipa Icarus (CanSat 2017)",
+		"name": "Equipa Icarus",
 		"language": "PT",
 
 		"page.home": "Página Inicial",
