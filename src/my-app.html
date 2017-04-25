@@ -26,6 +26,10 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 <link rel="import" href="localize-behavior.html">
 <link rel="import" href="my-icons.html">
 
+<!-- Comply with EU cookie law, inform the user -->
+<link rel="stylesheet" type="text/css" href="//cdnjs.cloudflare.com/ajax/libs/cookieconsent2/3.0.3/cookieconsent.min.css" />
+<script src="//cdnjs.cloudflare.com/ajax/libs/cookieconsent2/3.0.3/cookieconsent.min.js"></script>
+
 <dom-module id="my-app">
 	<template>
 		<style>
@@ -248,7 +252,8 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 				'_languageChanged(language)',
 				'_pageChanged(page)',
 				'_updateWindowTitle(page, localizePageName)',
-				'_pathChanged(route.path)'
+				'_pathChanged(route.path)',
+				'_showCookieConsent(localize)'
 			],
 			ready() {
 				// Expose routing
@@ -272,6 +277,33 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 					// Redirect to home, force language autodetection
 					this.set('route.path', `/${App.guessLanguage()}/home`)
 				}
+			},
+			_showCookieConsent(localize) {
+				if (!localize || this.cookieConsentIntialized) {
+					return
+				}
+
+				// Inform the user of cookie updates
+				window.cookieconsent.initialise({
+					palette: {
+						popup: {
+							background: "#323232",
+							text: "#f1f1f1"
+						},
+						button: {
+							background: "#323232",
+							text: "#eeff41"
+						}
+					},
+					content: {
+						message: localize('cookie.message'),
+						dismiss: localize('cookie.dismiss'),
+						link: localize('cookie.learnMore')
+					}
+				})
+
+				// Make sure we don't run again
+				this.cookieConsentInitialized = true
 			},
 			_computeLocalizePageName(localize) {
 				return page => localize('page.' + page)

@@ -25,7 +25,11 @@
 		"e404.contactLink": "contact us",
 
 		"reloadToUpdate.message": "New or updated content is available.",
-		"reloadToUpdate.buttonText": "Reload To Update"
+		"reloadToUpdate.buttonText": "Reload To Update",
+
+		"cookie.message": "This website uses cookies to ensure you get the best experience on our website.",
+		"cookie.dismiss": "Got it!",
+		"cookie.learnMore": "Learn more"
 	},
 	"pt": {
 		"title": "Equipa Icarus (CanSat 2017)",
@@ -53,6 +57,10 @@
 		"e404.contactLink": "contacte-nos",
 
 		"reloadToUpdate.message": "Conteúdo novo ou atualizado está disponível.",
-		"reloadToUpdate.buttonText": "Recarregar Página para Atualizar"
+		"reloadToUpdate.buttonText": "Recarregar Página para Atualizar",
+
+		"cookie.message": "Este website usa cookies para melhorar a sua experiência.",
+		"cookie.dismiss": "OK",
+		"cookie.learnMore": "Ver mais informação"
 	}
 }
