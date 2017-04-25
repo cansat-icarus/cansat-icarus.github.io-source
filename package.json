@@ -6,8 +6,8 @@
   },
   "scripts": {
     "start": "polymer serve",
-    "lint": "xo; polymer lint",
     "test": "npm run lint; polymer test",
+    "lint": "polymer lint; xo",
     "serve": "polymer serve",
     "build": "polymer build"
   },
