@@ -18,6 +18,7 @@ install:
 before_deploy:
   - polymer build
   - touch build/bundled/.nojekyll
+  - cp manifest.json build/bundled/
 
 # Publish to GitHub Pages
 deploy:
