@@ -13,11 +13,81 @@
 
 		<div class="paper-material">
 			<h1>[[localize('page.project')]]</h1>
-			<template is="dom-if" if="[[!isPt]]">
 
+			<!-- General introduction to the competition -->
+			<template is="dom-if" if="[[!isPt]]">
+				<p>CanSat Portugal is an educational project of the European Space Agency (ESA), organized in Portugal with the support of CIÊNCIA VIVA - National Agency for Scientific and Technological Culture, with the aim of providing Portuguese students the first experience in projects related to space technology.</p>
+				<p>The CanSat itself (soda can-shaped satellite) is a functional model of a micro-satellite, in that all systems are integrated into the volume of a soda can. It is launched by a rocket to a predefined height (1000 meters) so that during the descent we can perform a scientific experiment, capture its signals (telemetry) and ensure a safe landing.</p>
+				<p>For more information related to the competition visit <a href="http://www.cienciaviva.pt/esero/iniciativas/?accao=showini&id_i=227" target="_blank">CanSat Portugal</a>(in portuguese) or <a href="http://www.esa.int/Education/CanSat" target="_blank">CanSat (ESA)</a>.</p>
 			</template>
 			<template is="dom-if" if="[[isPt]]">
+				<p>O CanSat Portugal é um projeto educativo da Agencia Espacial Europeia (ESA), organizado em Portugal pelo Centro AeroEspaço do Aeroclube de Torres Vedras em cooperação com a Ciência Viva- Agência Nacional para a Cultura Científica e Tecnológica, com o objectivo de proporcionar aos estudantes Portugueses a primeira experiência em projetos relacionados com a tecnologia aeroespacial.</p>
+				<p>O CanSat em si (satélite em forma de lata) é um modelo funcional de um micro-satélite, em que todos os sistemas são integrados no volume de uma lata de refrigerante. É lançado por um foguetão até uma altitude previamente definida (1000 metros) para que durante a descida seja possível realizar uma experiência científica, captar os sinais emitidos (telemetria) e garantir uma aterragem segura.</p>
+				<p>Para mais informação acerca da competição visite <a href="http://www.cienciaviva.pt/esero/iniciativas/?accao=showini&id_i=227" target="_blank">CanSat Portugal</a> ou <a href="http://www.esa.int/Education/CanSat" target="_blank">CanSat (ESA)</a>(em inglês).</p>
+			</template>
 
+			<!-- Primary mission and secondary mission intro -->
+			<h2>[[localize('project.mission')]]</h2>
+			<template is="dom-if" if="[[!isPt]]">
+				<p>All competing projects are composed by two main missions: primary and secondary. The primary mission is common to all teams. It consists in sending pressure and temperature data to a ground station in a rate of, at least, one packet per second.</p>
+			</template>
+			<template is="dom-if" if="[[isPt]]">
+				<p>Todos os projetos dentro da competição são compostos por duas grandes missões: a primária e a secundária. A missão primária é comum para todas as equipas e consiste em enviar dados de pressão e temperatura pelo menos uma vez por segundo para uma estação terrestre. A secundária está ao critério de cada equipa.</p>
+			</template>
+
+			<!-- Secondary mission: bacteria -->
+			<h3>[[localize('project.mission2.bacteria')]]</h3>
+			<template is="dom-if" if="[[!isPt]]">
+				<p>
+					In an attempt to understand how bacteria like
+					<a href="https://en.wikipedia.org/wiki/Cupriavidus_metallidurans" target="_blank"><i>C. metallidurans</i></a>
+					(frequently isolated in the
+					<a href="https://en.wikipedia.org/wiki/International_Space_Station" target="_blank">ISS</a>
+					) survive to the harsh conditions of space, we will study their operon <i>pelABCDEFG</i>, not yet well studied(?caracterizado?) but thought to increase biofilm formation.
+					<a href="https://en.wikipedia.org/wiki/Biofilm" target="_blank">Biofilms</a>
+					are structures that promote resistance to adverse environments, being possible that they protect our bacteria agains sudden movements(jerk).
+				</p>
+				<p>
+					For this, we genetically modified
+					<a href="https://en.wikipedia.org/wiki/Escherichia_coli" target="_blank"><i>E. coli</i></a>
+					bacteria with this operon and studied the changes to their behavior (survival rate and biofilm formation) in lab and in the conditions of a CanSat.
+				</p>
+			</template>
+			<template is="dom-if" if="[[isPt]]">
+				<p>
+					Na tentativa de entender como é que bactérias como
+					<a href="https://pt.wikipedia.org/wiki/Cupriavidus_metallidurans" target="_blank"><i>C. metallidurans</i></a>
+					(frequentemente isoladas na
+					<a href="https://pt.wikipedia.org/wiki/Esta%C3%A7%C3%A3o_Espacial_Internacional" target="_blank">EEI</a>
+					) sobrevivem a condições tão adversas, estudaremos o seu operão pelABCDEFG, ainda não caracterizado mas que se pensa levar à formação de
+					‘<a href="https://pt.wikipedia.org/wiki/Biofilme" target="_blank">Biofilmes</a>’
+					- estruturas que promovem a resistência a condições inóspitas, podendo proteger as bactérias contra movimentos repentinos (jerk).
+				</p>
+				<p>
+					Para isso, modificámos geneticamente bactérias
+					<a href="https://pt.wikipedia.org/wiki/Escherichia_coli" target="_blank"><i>E. coli</i></a>
+					com este operão e estudámos alterações ao seu comportamento (como taxa de sobrevivência e formação de biofilmes) em laboratório e nas condições do CanSat.
+				</p>
+			</template>
+
+			<!-- Secondary mission: "sistema do breda" -->
+			<h3>[[localize('project.mission2.breda')]]</h3>
+			<template is="dom-if" if="[[!isPt]]">
+				<p>The data capture system comprises at least 4 ground stations, with their antennas to be oriented differently, which allows them to have different polarizations (the polarization of the CanSat's signal is affected by oscillations and changes in its orientation), resulting in better reception overall. These stations save data locally and function completely independently from the rest of the system.</p>
+				<p>They are constantly trying to connect to an external server(backend) that accepts an integral copy of all data and automatically chooses the best packets, using CRC checksum comparison, heuristics and coherence between stations as criteria.</p>
+			</template>
+			<template is="dom-if" if="[[isPt]]">
+				<p>O sistema de captura de dados é composto por pelo menos 4 estações-base em que as antenas se encontram com orientações diferentes, o que proporciona diferentes polarizações (oscilações do CanSat alteram a polarização do sinal enviado), permitindo melhores resultados na captação de dados. Estas guardam dados localmente, funcionando independentemente do resto do sistema.</p>
+				<p>As estações estão constantemente a tentar ligar-se a um servidor externo (backend) que aceita uma cópia integral de todos os dados captados e escolhe automaticamente os melhores pacotes, tendo como critério a checksum CRC, algoritmos heurísticos e coerência entre estações.</p>
+			</template>
+
+			<!-- Secondary mission: tracker -->
+			<h3>[[localize('project.mission2.tracker')]]</h3>
+			<template is="dom-if" if="[[!isPt]]">
+				<p>We developed a small device that can make the difference between a lost and recovered CanSat. We have experienced how it's like to be part of the staff in last year's CanSat Europe and we know how hard it is to recover both CanSats and other equipment like rockets without precise location data. Our module contains a secondary GPS and a LoRa™ transmitter with a theoretical range of 16Km, substantially increasing the area where recovery is possible. With a separate battery providing an estimated 4h of operational time and a separate microcontroller(ATmega328pu), this module is fully independent from the main system and can be inserted in other CanSats or even in the rockets used by the competition.</p>
+			</template>
+			<template is="dom-if" if="[[isPt]]">
+				<p>Criámos um pequeno dispositivo que facilita a recuperação de todos os satélites e rockets utilizados no CanSat (ou outros equipamentos do ramo), já que, por experiência, sabemos que são difíceis de recuperar. Assim, temos um módulo localizador com outro GPS e transmissor, completamente independente do resto do CanSat. Por isso, prevemos utilizar um modem LoRa™, que tem um alcance teórico de 16km, aumentando a área passível de recuperação.</p>
 			</template>
 		</div>
 	</template>
