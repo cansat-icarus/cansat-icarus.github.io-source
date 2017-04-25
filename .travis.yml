@@ -17,7 +17,7 @@ install:
 # DEPLOY THINGS!
 before_deploy:
   - polymer build
-  - touch
+  - touch build/bundled/.nojekyll
 
 # Publish to GitHub Pages
 deploy:
