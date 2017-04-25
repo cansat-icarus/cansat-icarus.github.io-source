@@ -9,6 +9,10 @@ cache:
   directories:
     - node_modules
 
+install:
+  - yarn
+  - bower install
+
 # DEPLOY THINGS!
 before_deploy:
   - polymer build
