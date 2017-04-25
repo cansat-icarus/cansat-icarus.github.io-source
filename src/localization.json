@@ -1,0 +1,66 @@
+{
+	"en": {
+		"title": "Team Icarus (CanSat 2017)",
+		"name": "Team Icarus",
+		"language": "EN",
+
+		"page.home": "Home",
+		"page.project": "Project",
+		"page.sponsors": "Sponsors",
+		"page.about": "About Us",
+
+		"about.contact": "Contact us!",
+
+		"home.heroText": "",
+		"home.heroButton": "See what we do",
+
+		"project.mission": "Missions",
+		"project.mission2.bacteria": "Bacterial Biofilm Study",
+		"project.mission2.tracker": "Tracker Module",
+		"project.mission2.breda": "Data Capture and Processing System",
+
+		"e404.title": "Error 404",
+		"e404.body1": "The page you're looking for was not found. Check the URL and try again.",
+		"e404.body2": "If you think this is an mistake on our end please ",
+		"e404.contactLink": "contact us",
+
+		"reloadToUpdate.message": "New or updated content is available.",
+		"reloadToUpdate.buttonText": "Reload To Update",
+
+		"cookie.message": "This website uses cookies to ensure you get the best experience on our website.",
+		"cookie.dismiss": "Got it!",
+		"cookie.learnMore": "Learn more"
+	},
+	"pt": {
+		"title": "Equipa Icarus (CanSat 2017)",
+		"name": "Equipa Icarus",
+		"language": "PT",
+
+		"page.home": "Página Inicial",
+		"page.project": "Projeto",
+		"page.sponsors": "Patrocínios",
+		"page.about": "Quem somos",
+
+		"about.contact": "Contacte-nos!",
+
+		"home.heroText": "",
+		"home.heroButton": "Vê o que fazemos",
+
+		"project.mission": "Missões",
+		"project.mission2.bacteria": "Estudo de Biofilmes Bacterianos",
+		"project.mission2.tracker": "Módulo Localizador",
+		"project.mission2.breda": "Sistema de Captura e Processamento de Dados",
+
+		"e404.title": "Erro 404",
+		"e404.body1": "A página a qual tentou aceder não foi encontrada. Verifique o URL e tente novamente.",
+		"e404.body2": "Se acredita que este é um erro da nossa parte por favor ",
+		"e404.contactLink": "contacte-nos",
+
+		"reloadToUpdate.message": "Conteúdo novo ou atualizado está disponível.",
+		"reloadToUpdate.buttonText": "Recarregar Página para Atualizar",
+
+		"cookie.message": "Este website usa cookies para melhorar a sua experiência.",
+		"cookie.dismiss": "OK",
+		"cookie.learnMore": "Ver mais informação"
+	}
+}

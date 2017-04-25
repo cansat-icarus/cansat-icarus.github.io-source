@@ -1,0 +1,374 @@
+<!--
+@license
+Copyright (c) 2016 The Polymer Project Authors. All rights reserved.
+This code may only be used under the BSD style license found at http://polymer.github.io/LICENSE.txt
+The complete set of authors may be found at http://polymer.github.io/AUTHORS.txt
+The complete set of contributors may be found at http://polymer.github.io/CONTRIBUTORS.txt
+Code distributed by Google as part of the polymer project is also
+subject to an additional IP rights grant found at http://polymer.github.io/PATENTS.txt
+-->
+<link rel="import" href="../bower_components/polymer/polymer.html">
+<link rel="import" href="../bower_components/app-route/app-location.html">
+<link rel="import" href="../bower_components/app-route/app-route.html">
+<link rel="import" href="../bower_components/app-layout/app-drawer-layout/app-drawer-layout.html">
+<link rel="import" href="../bower_components/app-layout/app-drawer/app-drawer.html">
+<link rel="import" href="../bower_components/app-layout/app-scroll-effects/app-scroll-effects.html">
+<link rel="import" href="../bower_components/app-layout/app-header/app-header.html">
+<link rel="import" href="../bower_components/app-layout/app-header-layout/app-header-layout.html">
+<link rel="import" href="../bower_components/app-layout/app-toolbar/app-toolbar.html">
+<link rel="import" href="../bower_components/iron-pages/iron-pages.html">
+<link rel="import" href="../bower_components/iron-selector/iron-selector.html">
+<link rel="import" href="../bower_components/paper-icon-button/paper-icon-button.html">
+<link rel="import" href="../bower_components/paper-menu-button/paper-menu-button.html">
+<link rel="import" href="../bower_components/paper-item/paper-item.html">
+<link rel="import" href="../bower_components/paper-button/paper-button.html">
+<link rel="import" href="../bower_components/paper-toast/paper-toast.html">
+<link rel="import" href="localize-behavior.html">
+<link rel="import" href="my-icons.html">
+
+<!-- Comply with EU cookie law, inform the user -->
+<link rel="stylesheet" type="text/css" href="//cdnjs.cloudflare.com/ajax/libs/cookieconsent2/3.0.3/cookieconsent.min.css" />
+<script src="//cdnjs.cloudflare.com/ajax/libs/cookieconsent2/3.0.3/cookieconsent.min.js"></script>
+
+<dom-module id="my-app">
+	<template>
+		<style>
+			:host {
+				display: block;
+				--app-primary-color: #4285f4;
+				--app-secondary-color: black;
+			}
+
+			app-header {
+				background-color: var(--app-primary-color);
+				color: #fff;
+			}
+			app-header paper-icon-button {
+				--paper-icon-button-ink-color: white;
+			}
+
+			.drawer-list {
+				margin: 0 20px;
+			}
+			.drawer-list a, .dropdown-content a {
+				display: block;
+				padding: 0 16px;
+				line-height: 40px;
+				text-decoration: none;
+				color: var(--app-secondary-color);
+			}
+			.drawer-list a.iron-selected, .dropdown-content a.iron-selected {
+				color: black;
+				font-weight: bold;
+			}
+			.drawer-list a.subroute {
+				padding-left: 32px;
+			}
+
+			#langSelector {
+				font-size: 0.95em;
+			}
+			#langSelector paper-menu {
+				display: block;
+			}
+
+			main {
+				width: 100%;
+			}
+
+			footer, iron-pages > * {
+				margin: 24px;
+			}
+
+			@media screen and (max-width: 450px) {
+				footer, iron-pages > * {
+					margin: 5px;
+				}
+			}
+
+			page-home {
+				margin: 0 !important;
+				margin-bottom: 10px;
+			}
+
+			footer {
+				display: flex;
+				justify-content: space-around;
+				align-items: center;
+				flex-wrap: wrap;
+			}
+
+			footer img {
+				margin: 0 10px;
+				max-width: 100px;
+				max-height: 100px;
+				height: auto;
+				width: auto;
+			}
+
+			footer img[alt="Ciência Viva Logo"] {
+				padding-bottom: 6px;
+			}
+
+			footer img[alt="CanSat Portugal Logo"] {
+				padding-bottom: 50px;
+			}
+		</style>
+
+		<app-location route="{{route}}" use-hash-as-path></app-location>
+		<app-route
+			route="{{route}}"
+			pattern="/:lang/:page"
+			data="{{routeData}}">
+		</app-route>
+
+		<app-drawer-layout fullbleed responsive-width="1230px">
+			<!-- Drawer content -->
+			<app-drawer>
+				<app-toolbar>Menu</app-toolbar>
+				<nav>
+					<iron-selector selected="[[page]]" attr-for-selected="name" class="drawer-list" role="navigation">
+						<template is="dom-repeat" items="[[pages]]">
+							<a name="[[item]]" href="/#/[[language]]/[[item]]" tabindex="-1">
+								<paper-item>[[localizePageName(item)]]</paper-item>
+							</a>
+						</template>
+					</iron-selector>
+				</nav>
+			</app-drawer>
+
+			<!-- Main content -->
+			<app-header-layout has-scrolling-region>
+				<app-header fixed effects="waterfall">
+					<app-toolbar>
+						<paper-icon-button icon="menu" drawer-toggle></paper-icon-button>
+						<div main-title>[[localize('name')]]</div>
+
+						<!-- Language selector -->
+						<paper-menu-button
+							id="langSelector"
+							dynamic-align
+							vertical-align="bottom"
+							horizontal-align="right"
+							horizontal-offset="10"
+							aria-label="Language Switcher">
+							<paper-button class="dropdown-trigger">
+								<iron-icon icon="language"></iron-icon>
+								&nbsp;[[localize('language')]]
+							</paper-button>
+
+							<iron-selector selected="{{language}}" attr-for-selected="name" class="dropdown-content">
+								<a name="pt" href="javascript:;" tabindex="-1">
+									<paper-item>Português</paper-item>
+								</a>
+								<a name="en" href="javascript:;" tabindex="-1">
+									<paper-item>English</paper-item>
+								</a>
+							</iron-selector>
+						</paper-menu-button>
+
+					</app-toolbar>
+				</app-header>
+
+				<main>
+					<iron-pages selected="[[page]]" attr-for-selected="name" fallback-selection="e404" role="main">
+						<page-home language="[[language]]" name="home"></page-home>
+						<page-project language="[[language]]" name="project"></page-project>
+						<page-sponsors language="[[language]]" name="sponsors"></page-sponsors>
+						<page-about language="[[language]]" name="about"></page-about>
+						<page-e404 language="[[language]]" name="e404"></page-e404>
+					</iron-pages>
+
+					<footer>
+						<picture>
+							<img src="/images/icarus_blackfg.png" alt="Team Icarus Logo">
+						</picture>
+						<div style="flex: 1;"></div>
+						<a href="http://www.esa.int/ESA" target="_blank">
+							<picture>
+								<img src="/images/cansat-org/esa.png" alt="ESA Logo">
+							</picture>
+						</a>
+						<a href="http://cienciaviva.pt/home/" target="_blank">
+							<picture>
+								<img src="/images/cansat-org/ciencia-viva.png" alt="Ciência Viva Logo">
+							</picture>
+						</a>
+						<a href="http://www.cienciaviva.pt/esero/home/" target="_blank">
+							<picture>
+								<img src="/images/cansat-org/esero-portugal.png" alt="ESERO Portugal Logo">
+							</picture>
+						</a>
+						<a href="http://www.cienciaviva.pt/esero/iniciativas/?accao=showini&id_i=227" target="_blank">
+							<picture>
+								<img src="/images/cansat-org/cansat-portugal.png" alt="CanSat Portugal Logo">
+							</picture>
+						</a>
+					</footer>
+				</main>
+			</app-header-layout>
+		</app-drawer-layout>
+
+		<paper-toast id="updateToast" always-on-top auto-fit-on-attach duration="10000">
+			[[localize('reloadToUpdate.message')]]
+			<paper-button on-tap="reloadPage">[[localize('reloadToUpdate.buttonText')]]</paper-button>
+		</paper-toast>
+	</template>
+
+	<script>
+		// Check validity of localStorage language before trying to use it
+		if (localStorage.language !== 'en' && localStorage.language !== 'pt' && Boolean(localStorage.language)) {
+			localStorage.removeItem('language')
+		}
+
+		App.guessLanguage = function () {
+			return localStorage.language || (navigator.language.includes('pt') ? 'pt' : 'en')
+		}
+
+		Polymer({
+			is: 'my-app',
+			behaviors: [App.LocalizeBehavior],
+			properties: {
+				route: Object,
+				routeData: {
+					type: Object,
+					value: () => ({
+						page: 'home',
+						lang: App.guessLanguage()
+					})
+				},
+				pages: {
+					type: Array,
+					value: ['home', 'project', 'sponsors', 'about']
+				},
+				localizePageName: {
+					type: Function,
+					computed: '_computeLocalizePageName(localize)'
+				},
+				page: String
+			},
+			observers: [
+				'_routeChanged(routeData.lang, routeData.page)',
+				'_languageChanged(language)',
+				'_pageChanged(page)',
+				'_updateWindowTitle(page, localizePageName)',
+				'_pathChanged(route.path)',
+				'_showCookieConsent(localize)'
+			],
+			ready() {
+				// Expose routing
+				App.goToPage = page => this.set('routeData.page', page)
+
+				if (navigator.serviceWorker) {
+					// Detect SW updates
+					navigator.serviceWorker.ready.then(registration => {
+						registration.addEventListener('updatefound', () => {
+							this.$.updateToast.show()
+						})
+					})
+				}
+			},
+			reloadPage() {
+				window.location.reload()
+			},
+			_pathChanged(path) {
+				// Fix empty path stopping the router
+				if (!path) {
+					// Redirect to home, force language autodetection
+					this.set('route.path', `/${App.guessLanguage()}/home`)
+				}
+			},
+			_showCookieConsent(localize) {
+				if (!localize || this.cookieConsentIntialized) {
+					return
+				}
+
+				// Inform the user of cookie updates
+				window.cookieconsent.initialise({
+					palette: {
+						popup: {
+							background: "#323232",
+							text: "#f1f1f1"
+						},
+						button: {
+							background: "#323232",
+							text: "#eeff41"
+						}
+					},
+					content: {
+						message: localize('cookie.message'),
+						dismiss: localize('cookie.dismiss'),
+						link: localize('cookie.learnMore')
+					}
+				})
+
+				// Make sure we don't run again
+				this.cookieConsentInitialized = true
+			},
+			_computeLocalizePageName(localize) {
+				return page => localize('page.' + page)
+			},
+			_routeChanged(language, page) {
+				// Invalid/Empty language?
+				if (this._isLangInvalid(language)) {
+					this.set('routeData.lang', App.guessLanguage())
+
+					return
+				}
+
+				// Update language property for proper localization
+				this.language = language
+
+				// Update page property (so the right one is shown)
+				this.page = page
+			},
+			_languageChanged(language) {
+				// Update route language if needed
+				if (this.routeData.lang !== language) {
+					this.set('routeData.lang', language)
+				}
+
+				// Save language preference
+				localStorage.language = language
+			},
+			_isLangInvalid(lang) {
+				return !(lang === 'en' || lang === 'pt')
+			},
+			_pageChanged(page) {
+				// Load page import on demand. Show 404 page if fails
+				// e404 is loaded differently
+				if (page !== 'e404') {
+					this._loadPage(page)
+				}
+			},
+			_updateWindowTitle(page, localizePageName) {
+				if (!page || !localizePageName) {
+					return
+				}
+
+				// Update window title
+				document.title = localizePageName(page)
+			},
+			_loadPage(page) {
+				const resolvedPageUrl = this.resolveUrl('pages/page-' + page + '.html')
+				this.importHref(resolvedPageUrl, null, this._showPage404, true)
+			},
+			_showPage404() {
+				if (this.page === 'e404') {
+					// We're hitting a loop
+					document.body.innerHTML = `<h1>Error 404</h1>
+					<p>The page you were looking for was not found. The regular 404 page was also not found...
+					So, either you really messed up the URL or we really messed up our site</p>
+					<p>Seriously, you should never see this page. It's bad, but don't worry!
+					Our data survives regardless of the website downtime.</p>
+					<p>Just one more thing: please warn us about this by email.
+					Our email is <a href="mailto:cansatesap@gmail.com">cansatesap@gmail.com</a>.</p>`
+				}
+
+				// Keep current URL, just change what page we're showing
+				this.page = 'e404'
+				this._loadPage('e404')
+			}
+		})
+	</script>
+</dom-module>

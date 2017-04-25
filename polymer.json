@@ -1,0 +1,42 @@
+{
+	"entrypoint": "index.html",
+	"shell": "src/my-app.html",
+	"fragments": [
+		"src/pages/page-home.html",
+		"src/pages/page-project.html",
+		"src/pages/page-about.html",
+		"src/pages/page-sponsors.html",
+		"src/pages/page-e404.html"
+	],
+	"sources": [
+		"index.html",
+		"src/**/*",
+		"images/**/*",
+		"bower.json"
+	],
+	"extraDependencies": [
+		"bower_components/webcomponentsjs/webcomponents-lite.min.js",
+		"src/localization.json"
+	],
+	"lint": {
+		"rules": ["polymer-1"]
+	},
+	"builds": [
+		{
+			"name": "bundled",
+			"bundle": true,
+			"addServiceWorker": true,
+			"swPrecacheConfig": "sw-precache-config.js",
+			"css": {
+				"minify": true
+			},
+			"js": {
+				"minify": true,
+				"compile": true
+			},
+			"html": {
+				"minify": true
+			}
+		}
+	]
+}

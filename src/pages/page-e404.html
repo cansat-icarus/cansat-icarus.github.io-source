@@ -1,0 +1,30 @@
+<link rel="import" href="../../bower_components/polymer/polymer.html">
+<link rel="import" href="../shared-styles.html">
+<link rel="import" href="../localize-behavior.html">
+
+<dom-module id="page-e404">
+	<template>
+		<style include="shared-styles">
+			:host {
+				display: block;
+				padding: 10px;
+			}
+		</style>
+
+		<div class="paper-material">
+			<h1>[[localize('e404.title')]]</h1>
+			<p>[[localize('e404.body1')]]</p>
+			<p>[[localize('e404.body2')]]<a href="javascript:;" on-tap="goToAboutPage">[[localize('e404.contactLink')]]</a>.</p>
+		</div>
+	</template>
+
+	<script>
+		Polymer({
+			is: 'page-e404',
+			behaviors: [App.LocalizeBehavior],
+			goToAboutPage() {
+				App.goToPage('about')
+			}
+		})
+	</script>
+</dom-module>
