@@ -11,7 +11,7 @@ cache:
 
 install:
   - yarn
-  - yarn global add polymer-cli
+  - yarn global add polymer-cli bower
   - bower install
 
 # DEPLOY THINGS!
