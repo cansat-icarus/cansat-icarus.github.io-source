@@ -4,19 +4,39 @@
 	"fragments": [
 		"src/pages/page-home.html",
 		"src/pages/page-project.html",
-		"src/pages/page-team.html",
-		"src/pages/page-contact.html",
+		"src/pages/page-about.html",
+		"src/pages/page-sponsors.html",
 		"src/pages/page-e404.html"
 	],
-	"sourceGlobs": [
-	 "src/**/*",
-	 "images/**/*",
-	 "bower.json"
+	"sources": [
+		"index.html",
+		"src/**/*",
+		"images/**/*",
+		"bower.json"
 	],
-	"includeDependencies": [
-		"bower_components/webcomponentsjs/webcomponents-lite.min.js"
+	"extraDependencies": [
+		"bower_components/webcomponentsjs/webcomponents-lite.min.js",
+		"src/localization.json"
 	],
 	"lint": {
 		"rules": ["polymer-1"]
-	}
+	},
+	"builds": [
+		{
+			"name": "bundled",
+			"bundle": true,
+			"addServiceWorker": true,
+			"swPrecacheConfig": "sw-precache-config.js",
+			"css": {
+				"minify": true
+			},
+			"js": {
+				"minify": true,
+				"compile": true
+			},
+			"html": {
+				"minify": true
+			}
+		}
+	]
 }

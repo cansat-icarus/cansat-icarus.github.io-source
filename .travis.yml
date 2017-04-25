@@ -1,0 +1,27 @@
+sudo: false # Stop annoying sudo warnings from travis
+
+language: node_js
+node_js:
+  - v6 # Latest LTS
+
+cache:
+  yarn: true
+  directories:
+    - node_modules
+
+# DEPLOY THINGS!
+before_deploy:
+  - polymer build
+  - touch
+
+# Publish to GitHub Pages
+deploy:
+  provider: pages
+  repo: cansat-icarus/cansat-icarus.github.io
+  skip_cleanup: true
+  target_branch: master
+  github_token: $GITHUB_TOKEN
+  local_dir: build/bundled
+  on:
+    branch: master
+    tags: true

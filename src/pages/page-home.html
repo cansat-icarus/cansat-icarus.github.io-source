@@ -1,5 +1,5 @@
 <link rel="import" href="../../bower_components/polymer/polymer.html">
-<link rel="import" href="../../bower_components/paper-material/paper-material.html">
+<link rel="import" href="../../bower_components/paper-button/paper-button.html">
 <link rel="import" href="../shared-styles.html">
 <link rel="import" href="../localize-behavior.html">
 
@@ -7,28 +7,101 @@
 	<template>
 		<style include="shared-styles">
 			:host {
+				height: 100%;
+				width: 100%;
+
+				display: flex;
+				flex-direction: column;
+			}
+
+			#hero {
+				position: relative;
+			}
+
+			#hero-img {
 				display: block;
-				padding: 10px;
+				max-height: calc(100vh - 64px); /* viewport height - header height = height left for content*/
+				max-width: 100%; /* stretch it all you want, but don't give me scroll bars */
+				z-index: 1;
+				margin: auto;
+			}
+
+			#hero-content {
+				position: absolute;
+				z-index: 2;
+
+				display: flex;
+				flex-direction: column;
+				justify-content: flex-end;
+				align-items: center;
+
+				top: 0;
+				bottom: 0;
+				left: 0;
+				right: 0;
+			}
+
+			#hero-text-container {
+				position: relative;
+				padding: 15px;
+				margin: 1em;
+			}
+
+			#hero-text-container-background {
+				position: absolute;
+				top: 0;
+				bottom: 0;
+				left: 0;
+				right: 0;
+				z-index: 1;
+
+				background-color: rgba(0, 0, 0, 0.6);
+				filter: blur(5px);
+			}
+
+			#hero-text {
+				position: relative;
+				z-index: 2;
+
+				display: flex;
+				flex-direction: column;
+				justify-content: center;
+				align-items: center;
+
+				color: #fff;
+			}
+
+			#hero-text paper-button {
+				border: solid 1px white;
+				border-radius: 10px;
 			}
 		</style>
+		<div id="hero">
+			<img id="hero-img" src="../../images/team.jpeg" alt="Subjectively funny team photo">
 
-		<paper-material>
-			<h1>[[localize('page.home')]]</h1>
-			<template is="dom-if" if="[[!isPt]]">
-					TODO: fancy image and big "see what we're doing" button
-					also, surprise banner will be here...
-					ENGLISH
-			</template>
-			<template is="dom-if" if="[[isPt]]">
-				Português!
-			</template>
-		</paper-material>
+			<div id="hero-content">
+				<div id="hero-text-container">
+					<div id="hero-text-container-background"></div>
+					<div id="hero-text">
+						<div>[[localize('home.heroText')]]</div>
+						<paper-button on-tap="goToProject">[[localize('home.heroButton')]]</paper-button>
+					</div>
+				</div>
+			</div>
+		</div>
 	</template>
 
 	<script>
 		Polymer({
 			is: 'page-home',
-			behaviors: [App.LocalizeBehavior]
+			behaviors: [App.LocalizeBehavior],
+			ready() {
+				// The image size is a bit wonky...
+				window.dispatchEvent(new Event('resize'))
+			},
+			goToProject() {
+				App.goToPage('project')
+			}
 		})
 	</script>
 </dom-module>

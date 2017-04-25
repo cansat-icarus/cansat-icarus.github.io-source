@@ -9,16 +9,20 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 -->
 
 <link rel="import" href="../bower_components/polymer/polymer.html">
+<link rel="import" href="../bower_components/paper-styles/shadow.html">
 
 <!-- shared styles for all views -->
 <dom-module id="shared-styles">
 	<template>
 		<style>
-			paper-material {
+			.paper-material {
 				padding: 16px;
-				margin: 24px;
 				background-color: #fff;
 				color: #757575;
+			}
+
+			.paper-material {
+				@apply(--shadow-elevation-2dp);
 			}
 
 			.circle {
@@ -34,8 +38,13 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 			}
 
 			h1 {
-				font-size: 22px;
+				font-size: 1.5em;
 				margin: 16px 0;
+				color: #212121;
+			}
+
+			h2 {
+				font-size: 1.25em;
 				color: #212121;
 			}
 		</style>

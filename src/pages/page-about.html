@@ -1,0 +1,130 @@
+<link rel="import" href="../../bower_components/polymer/polymer.html">
+<link rel="import" href="../../bower_components/paper-icon-button/paper-icon-button.html">
+<link rel="import" href="../../bower_components/iron-flex-layout/iron-flex-layout-classes.html">
+<link rel="import" href="../../bower_components/google-map/google-map.html">
+<link rel="import" href="../my-icons.html">
+<link rel="import" href="../shared-styles.html">
+<link rel="import" href="../localize-behavior.html">
+
+<dom-module id="page-about">
+	<template>
+		<style is="custom-style" include="iron-flex shared-styles paper-material-shared-styles">
+			:host {
+				display: block;
+				padding: 10px;
+			}
+
+			.icon-link {
+				display: inline-block;
+				color: #757575;
+				border-radius: 50%;
+				height: 42px;
+				width: 42px;
+			}
+
+			.icon-link {
+				position: relative;
+				left: -4px;
+			}
+
+			#map-container {
+				display: flex;
+				flex-wrap: wrap;
+				justify-content: space-between;
+				align-content: stretch;
+				align-items: stretch;
+			}
+
+			google-map {
+				flex: 1;
+				min-width: 300px;
+				height: 300px;
+				margin: 4px;
+			}
+
+			#map-container > div {
+				margin: 4px;
+				width: 300px;
+			}
+
+			#social-buttons {
+				display: flex;
+				justify-content: space-around;
+			}
+		</style>
+
+		<div class="paper-material layout vertical">
+			<h1>[[localize('page.about')]]</h1>
+			<template is="dom-if" if="[[isPt]]">
+				<p>Somos uma equipa da Escola Secundária Adolfo Portela integrante na competição CanSat Portugal e temos como objetivo expandir os nossos horizontes no conhecimento científico e tecnológico. A nossa equipa é composta por 6 alunos - Alexandre Afonso, Ana Beatriz Vitória, André Breda, Bernardo Rodrigues, Filipe Almeida e Inês Lopes - acompanhados por um professor - João Cera - e em colaboração com duas professoras da Universidde de Aveiro - Sandra Vieira e Tânia Caetano.</p>
+			</template>
+			<template is="dom-if" if="[[!isPt]]">
+				<p>We are a team from Escola Secundária Adolfo Portela participating in the CanSat Portugal competition, striving to widen our horizons. Our team is composed of 6 students - Alexandre Afonso, Ana Beatriz Vitória, André Breda, Bernardo Rodrigues, Filipe Almeida and Inês Lopes - accompanied by a teacher - João Cera - and in collaboration with two teachers from Universidade de Aveiro - Sandra Vieira and Tânia Caetano.</p>
+			</template>
+
+			<h2>[[localize('about.contact')]]</h2>
+			<div id="map-container">
+				<google-map fit-to-markers zoom="16">
+					<google-map-marker latitude="40.583707" longitude="-8.447820" title="Escola Secundária Adolfo Portela"></google-map-marker>
+				</google-map>
+				<div class="layout vertical">
+					<div>Escola Secundária Adolfo Portela</div>
+					<div>Rua Joaquim Valente de Almeida, 242</div>
+					<div>3750-154 Águeda, Portugal</div>
+					<div>Tel.: <a href="tel:+351234623808">234 623 808</a></div>
+					<div>Email: cansatesap@gmail.com</div> <!-- because mailto: links don't work in some configurations -->
+					<div class="flex"></div>
+					<div id="social-buttons">
+						<paper-icon-button
+							role="link"
+							alt="Our Facebook Page"
+							title="Facebook"
+							icon="fa:facebook_sign"
+							class="icon-link"
+							on-tap="openLink"
+							data-href="https://www.facebook.com/Icarus-1662440837332463">
+						</paper-icon-button>
+						<paper-icon-button
+							role="link"
+							alt="Our Instragram Page"
+							title="Instagram"
+							icon="fa:instagram"
+							class="icon-link"
+							on-tap="openLink"
+							data-href="https://www.instagram.com/icarus_esap/">
+						</paper-icon-button>
+						<paper-icon-button
+							role="link"
+							alt="Our GitHub Repositories"
+							title="GitHub"
+							icon="fa:github"
+							class="icon-link"
+							on-tap="openLink"
+							data-href="https://github.com/cansat-icarus">
+						</paper-icon-button>
+						<paper-icon-button
+							role="link"
+							alt="Our Email Address"
+							title="Email"
+							icon="fa:envelope_alt"
+							class="icon-link"
+							on-tap="openLink"
+							data-href="mailto:cansatesap@gmail.com">
+						</paper-icon-button>
+					</div>
+				</div>
+			</div>
+		</div>
+	</template>
+
+	<script>
+		Polymer({
+			is: 'page-about',
+			behaviors: [App.LocalizeBehavior],
+			openLink(event) {
+				const url = event.currentTarget.dataset.href
+				window.open(url, '_blank')
+			}
+		})
+	</script>
+</dom-module>

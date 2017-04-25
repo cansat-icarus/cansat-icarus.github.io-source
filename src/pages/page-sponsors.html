@@ -1,5 +1,4 @@
 <link rel="import" href="../../bower_components/polymer/polymer.html">
-<link rel="import" href="../../bower_components/paper-material/paper-material.html">
 <link rel="import" href="../shared-styles.html">
 <link rel="import" href="../localize-behavior.html">
 
@@ -10,23 +9,98 @@
 				display: block;
 				padding: 10px;
 			}
+
+			#grid {
+				display: flex;
+				flex-wrap: wrap;
+				justify-content: space-around;
+				align-content: space-between;
+				align-items: center;
+			}
+
+			img {
+				max-width: 250px;
+			}
+
+			img[alt="Sugru"], img[alt="iFixit"] {
+				/* This makes everything kinda centered. Close enough. */
+				position: relative;
+				top: 10px;
+			}
+
+			.grid-item {
+				height: 150px;
+				display: flex;
+				align-items: center;
+				justify-content: center;
+			}
+
+			a {
+				display: inline-block;
+
+				/* Remove default <a> styles */
+				color: inherit;
+				text-decoration: inherit;
+			}
 		</style>
 
-		<paper-material>
+		<div class="paper-material">
 			<h1>[[localize('page.sponsors')]]</h1>
-			<template is="dom-if" if="[[!isPt]]">
-
-			</template>
-			<template is="dom-if" if="[[isPt]]">
-
-			</template>
-		</paper-material>
+			<div id="grid">
+				<template is="dom-repeat" items="[[sponsors]]">
+					<div class="grid-item">
+						<a href="[[item.link]]" target="_blank">
+							<figure>
+								<img src="[[item.image]]" alt="[[item.name]]" title="[[item.name]]">
+							</figure>
+						</a>
+					</div>
+				</template>
+			</div>
+		</div>
 	</template>
 
 	<script>
 		Polymer({
 			is: 'page-sponsors',
-			behaviors: [App.LocalizeBehavior]
+			behaviors: [App.LocalizeBehavior],
+			properties: {
+				sponsors: {
+					type: Array,
+					value: () => [
+						{
+							name: 'Universidade de Aveiro',
+							link: 'https://www.ua.pt/',
+							image: 'images/sponsors/ua.png'
+						},
+						{
+							name: 'FusedMinds',
+							link: 'http://www.fusedminds.pt/', // https breaks the page
+							image: 'images/sponsors/fusedminds.jpg'
+						},
+						{
+							name: 'Sugru',
+							link: 'https://sugru.com/',
+							image: 'images/sponsors/sugru.jpg'
+						},
+						{
+							name: 'BEEVERYCREATIVE',
+							link: 'https://beeverycreative.com/',
+							image: 'images/sponsors/beeverycreative.png'
+						},
+						{
+							name: 'iFixit',
+							link: 'https://www.ifixit.com/',
+							image: 'images/sponsors/ifixit.jpeg'
+						},
+						{
+							name: 'Talents & Treasures',
+							link: 'https://www.t-t.pt/',
+							image: 'images/sponsors/talentsandtreasures.png'
+						}
+					]
+				}
+			}
 		})
 	</script>
 </dom-module>
