@@ -4,6 +4,10 @@ language: node_js
 node_js:
   - v6 # Latest LTS
 
+# We only use Travis for deployments
+branches:
+  only: /v.*/ # Select tag pushes
+
 cache:
   yarn: true
   directories:
