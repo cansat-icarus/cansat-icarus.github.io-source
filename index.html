@@ -11,6 +11,12 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 <!doctype html>
 <html lang="en">
 	<head>
+		<script>
+			// Redirect github pages to https ALWAYS! (we need it for service workers)
+			if (window.location.host.indexOf('github.io') > -1 && window.location.protocol !== 'https:') {
+				window.location.protocol = 'https:'
+			}
+		</script>
 		<meta charset="utf-8">
 		<meta name="viewport" content="width=device-width, minimum-scale=1, initial-scale=1, user-scalable=yes">
 
