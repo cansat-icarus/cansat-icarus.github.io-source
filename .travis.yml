@@ -6,7 +6,7 @@ node_js:
 
 # We only use Travis for deployments
 branches:
-  only: /v.*/ # Select tag pushes
+  only: master # Select tag pushes
 
 cache:
   yarn: true
@@ -34,4 +34,3 @@ deploy:
   local_dir: build/bundled
   on:
     branch: master
-    tags: true

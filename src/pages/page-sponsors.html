@@ -67,16 +67,22 @@
 			properties: {
 				sponsors: {
 					type: Array,
+					// Order determined by the Fisher-Yates Shuffle Algorithm for fairness (run over the alphabetically ordered array)
 					value: () => [
+						{
+							name: 'FusedMinds',
+							link: 'http://www.fusedminds.pt/',
+							image: 'images/sponsors/fusedminds.jpg'
+						},
 						{
 							name: 'Universidade de Aveiro',
 							link: 'https://www.ua.pt/',
 							image: 'images/sponsors/ua.png'
 						},
 						{
-							name: 'FusedMinds',
-							link: 'http://www.fusedminds.pt/', // HTTPS breaks the page
-							image: 'images/sponsors/fusedminds.jpg'
+							name: 'Talents & Treasures',
+							link: 'https://www.t-t.pt/',
+							image: 'images/sponsors/talentsandtreasures.png'
 						},
 						{
 							name: 'Sugru',
@@ -84,19 +90,19 @@
 							image: 'images/sponsors/sugru.jpg'
 						},
 						{
-							name: 'BEEVERYCREATIVE',
-							link: 'https://beeverycreative.com/',
-							image: 'images/sponsors/beeverycreative.png'
-						},
-						{
 							name: 'iFixit',
 							link: 'https://www.ifixit.com/',
 							image: 'images/sponsors/ifixit.jpeg'
 						},
 						{
-							name: 'Talents & Treasures',
-							link: 'https://www.t-t.pt/',
-							image: 'images/sponsors/talentsandtreasures.png'
+							name: 'HR Group',
+							link: 'http://www.hrproteccao.pt/public/PortalRender.aspx?PageID=5edc8bcd-2542-4555-afd6-d91d80f3b914',
+							image: 'images/sponsors/hr-group.png'
+						},
+						{
+							name: 'BEEVERYCREATIVE',
+							link: 'https://beeverycreative.com/',
+							image: 'images/sponsors/beeverycreative.png'
 						}
 					]
 				}
